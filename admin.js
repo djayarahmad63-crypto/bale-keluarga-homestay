@@ -367,100 +367,113 @@ function bindMasterSaveButton() {
     saveBtn.disabled = true;
     saveBtn.innerHTML = `⏳ Menyimpan...`;
 
-    // Collect values from Hero
-    appData.hero.badge = document.getElementById('heroBadgeInput').value;
-    appData.hero.title = document.getElementById('heroTitleInput').value;
-    appData.hero.highlightWord = document.getElementById('heroHighlightWordInput').value;
-    appData.hero.description = document.getElementById('heroDescInput').value;
-    appData.hero.bgImage = document.getElementById('heroBgCustomInput').value || 'images/hero.jpg';
-    appData.hero.highlight1 = document.getElementById('heroHl1Input').value;
-    appData.hero.highlight2 = document.getElementById('heroHl2Input').value;
-    appData.hero.highlight3 = document.getElementById('heroHl3Input').value;
-
-    // Collect values from Profile
-    appData.profile.brandName = document.getElementById('profBrandNameInput').value;
-    appData.profile.brandSubtitle = document.getElementById('profBrandSubInput').value;
-    appData.profile.whatsapp = document.getElementById('profWhatsappInput').value.replace(/[^0-9]/g, '');
-    appData.profile.phone = document.getElementById('profPhoneInput').value;
-    appData.profile.address = document.getElementById('profAddressInput').value;
-    appData.profile.checkinTime = document.getElementById('profCheckinInput').value;
-    appData.profile.checkoutTime = document.getElementById('profCheckoutInput').value;
-    appData.profile.aboutLead = document.getElementById('profAboutLeadInput').value;
-    appData.profile.aboutDesc = document.getElementById('profAboutDescInput').value;
-    appData.profile.badgeNumber = document.getElementById('profBadgeNumInput').value;
-    appData.profile.badgeText = document.getElementById('profBadgeTextInput').value;
-    appData.profile.aboutImage = document.getElementById('aboutImgCustomInput').value || 'images/hero.jpg';
-
-    // 1. Save to LocalStorage (Always safe offline backup)
-    localStorage.setItem('bale_homestay_data', JSON.stringify(appData));
-
-    // 2. Save directly to Google Spreadsheet
-    let savedToGoogleSheet = false;
-    const defaultSheetUrl = 'https://script.google.com/macros/s/AKfycbz-fWSD4VWqrb8vZqmMNCW9t8DV4UZTR1nWg_VJl71dn4wKHWVRnF49eK-tB2JJP6HuRg/exec';
-    const sheetUrl = localStorage.getItem('bale_google_sheet_url') || defaultSheetUrl;
-    if (sheetUrl) {
-      try {
-        await fetch(sheetUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(appData)
-        });
-        savedToGoogleSheet = true;
-      } catch (err) {
-        console.warn('Google Sheet save error:', err);
-      }
-    }
-
-    // 3. Multi-tier Save: Cloud Vercel KV / GitHub Token / LocalStorage
-    let savedToCloud = false;
-    let savedToGitHub = false;
+    const getVal = (id, fallback = '') => {
+      const el = document.getElementById(id);
+      return el ? el.value : fallback;
+    };
 
     try {
-      const res = await fetch('/api/data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(appData, null, 2)
-      });
-      if (res.ok) {
-        const result = await res.json();
-        if (result && result.success) {
-          if (result.storage === 'vercel-kv') savedToCloud = true;
-          if (result.storage === 'github') savedToGitHub = true;
+      if (!appData) appData = JSON.parse(JSON.stringify(defaultFactoryData));
+      if (!appData.hero) appData.hero = {};
+      if (!appData.profile) appData.profile = {};
+
+      // Collect values from Hero safely
+      appData.hero.badge = getVal('heroBadgeInput', appData.hero.badge);
+      appData.hero.title = getVal('heroTitleInput', appData.hero.title);
+      appData.hero.highlightWord = getVal('heroHighlightWordInput', appData.hero.highlightWord);
+      appData.hero.description = getVal('heroDescInput', appData.hero.description);
+      appData.hero.bgImage = getVal('heroBgCustomInput') || appData.hero.bgImage || 'images/hero.jpg';
+      appData.hero.highlight1 = getVal('heroHl1Input', appData.hero.highlight1);
+      appData.hero.highlight2 = getVal('heroHl2Input', appData.hero.highlight2);
+      appData.hero.highlight3 = getVal('heroHl3Input', appData.hero.highlight3);
+
+      // Collect values from Profile safely
+      appData.profile.brandName = getVal('profBrandNameInput', appData.profile.brandName);
+      appData.profile.brandSubtitle = getVal('profBrandSubInput', appData.profile.brandSubtitle);
+      appData.profile.whatsapp = getVal('profWhatsappInput', appData.profile.whatsapp || '').replace(/[^0-9]/g, '');
+      appData.profile.phone = getVal('profPhoneInput', appData.profile.phone);
+      appData.profile.address = getVal('profAddressInput', appData.profile.address);
+      appData.profile.checkinTime = getVal('profCheckinInput', appData.profile.checkinTime);
+      appData.profile.checkoutTime = getVal('profCheckoutInput', appData.profile.checkoutTime);
+      appData.profile.aboutLead = getVal('profAboutLeadInput', appData.profile.aboutLead);
+      appData.profile.aboutDesc = getVal('profAboutDescInput', appData.profile.aboutDesc);
+      appData.profile.badgeNumber = getVal('profBadgeNumInput', appData.profile.badgeNumber);
+      appData.profile.badgeText = getVal('profBadgeTextInput', appData.profile.badgeText);
+      appData.profile.aboutImage = getVal('aboutImgCustomInput') || appData.profile.aboutImage || 'images/hero.jpg';
+
+      // 1. Save to LocalStorage (Always safe offline backup)
+      localStorage.setItem('bale_homestay_data', JSON.stringify(appData));
+
+      // 2. Save directly to Google Spreadsheet
+      let savedToGoogleSheet = false;
+      const defaultSheetUrl = 'https://script.google.com/macros/s/AKfycbz-fWSD4VWqrb8vZqmMNCW9t8DV4UZTR1nWg_VJl71dn4wKHWVRnF49eK-tB2JJP6HuRg/exec';
+      const sheetUrl = localStorage.getItem('bale_google_sheet_url') || defaultSheetUrl;
+      if (sheetUrl) {
+        try {
+          await fetch(sheetUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(appData)
+          });
+          savedToGoogleSheet = true;
+        } catch (err) {
+          console.warn('Google Sheet save error:', err);
         }
       }
-    } catch (e) {
-      console.warn('API POST failed:', e);
-    }
 
-    // 4. Fallback client-side GitHub Commit if user configured GitHub Token in settings
-    const ghToken = localStorage.getItem('bale_admin_gh_token');
-    if (!savedToCloud && !savedToGitHub && !savedToGoogleSheet && ghToken) {
+      // 3. Multi-tier Save: Cloud Vercel KV / GitHub Token / LocalStorage
+      let savedToCloud = false;
+      let savedToGitHub = false;
+
       try {
-        const ghSuccess = await commitDataToGitHubDirect(ghToken, appData);
-        if (ghSuccess) savedToGitHub = true;
-      } catch (err) {
-        console.error('Client GitHub commit error:', err);
+        const res = await fetch('/api/data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(appData, null, 2)
+        });
+        if (res.ok) {
+          const result = await res.json();
+          if (result && result.success) {
+            if (result.storage === 'vercel-kv') savedToCloud = true;
+            if (result.storage === 'github') savedToGitHub = true;
+          }
+        }
+      } catch (e) {
+        console.warn('API POST failed:', e);
       }
+
+      // 4. Fallback client-side GitHub Commit if user configured GitHub Token in settings
+      const ghToken = localStorage.getItem('bale_admin_gh_token');
+      if (!savedToCloud && !savedToGitHub && !savedToGoogleSheet && ghToken) {
+        try {
+          const ghSuccess = await commitDataToGitHubDirect(ghToken, appData);
+          if (ghSuccess) savedToGitHub = true;
+        } catch (err) {
+          console.error('Client GitHub commit error:', err);
+        }
+      }
+
+      if (savedToGoogleSheet) {
+        showToast('📊 Berhasil disimpan langsung ke Google Spreadsheet!');
+      } else if (savedToCloud) {
+        showToast('☁️ Berhasil disimpan otomatis ke Cloud Database Vercel KV!');
+      } else if (savedToGitHub) {
+        showToast('🚀 Berhasil disimpan & di-commit otomatis ke GitHub!');
+      } else {
+        showToast('✅ Data tersimpan aman di browser & sistem!');
+      }
+    } catch (saveErr) {
+      console.error('Save error:', saveErr);
+      showToast('⚠️ Data disimpan ke browser lokal: ' + saveErr.message);
+    } finally {
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+        Simpan Semua Perubahan
+      `;
+      updateDashboardStats();
     }
-
-    if (savedToGoogleSheet) {
-      showToast('📊 Berhasil disimpan langsung ke Google Spreadsheet!');
-    } else if (savedToCloud) {
-      showToast('☁️ Berhasil disimpan otomatis ke Cloud Database Vercel KV!');
-    } else if (savedToGitHub) {
-      showToast('🚀 Berhasil disimpan & di-commit otomatis ke GitHub!');
-    } else {
-      showToast('✅ Data disimpan ke browser lokal. Sambungkan Google Spreadsheet agar otomatis tampil bagi semua pengunjung.');
-    }
-
-    saveBtn.disabled = false;
-    saveBtn.innerHTML = `
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-      Simpan Semua Perubahan
-    `;
-
-    updateDashboardStats();
   });
 }
 
