@@ -1653,6 +1653,83 @@ button, input, select, textarea {
   opacity: 0.35 !important;
 }
 
+/* Admin Login Modal Styling */
+.admin-login-box {
+  background: #ffffff;
+  border-radius: 20px;
+  max-width: 420px;
+  width: 100%;
+  padding: 36px 30px;
+  box-shadow: 0 25px 60px rgba(22, 17, 31, 0.45);
+  position: relative;
+  border-top: 5px solid var(--color-primary);
+  transform: translateY(20px);
+  transition: transform var(--transition-normal);
+  box-sizing: border-box;
+}
+
+.modal-overlay.active .admin-login-box {
+  transform: translateY(0);
+}
+
+.admin-login-box .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.admin-login-box .close-btn:hover {
+  background: rgba(0, 0, 0, 0.12);
+  color: #1e293b;
+}
+
+.admin-login-input {
+  width: 100%;
+  padding: 13px 44px 13px 16px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s;
+  box-sizing: border-box;
+  color: #1e293b;
+}
+
+.admin-login-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(147, 39, 143, 0.18);
+}
+
+.admin-login-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(147, 39, 143, 0.35);
+}
+
+.admin-login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(147, 39, 143, 0.45);
+}
+
 /* Modal for Room Preview */
 .modal-overlay {
   position: fixed;

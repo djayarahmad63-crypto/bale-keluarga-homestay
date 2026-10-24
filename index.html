@@ -1014,7 +1014,7 @@
       <div class="footer-bottom">
         <div>
           &copy; 2026 Bale Keluarga Homestay Sembalun. Seluruh Hak Dilindungi.
-          <a href="admin.html" class="admin-hidden-trigger" title="Panel Admin" aria-label="Panel Admin" style="opacity: 0; display: inline-block; margin-left: 6px; text-decoration: none; font-size: 0.85rem; vertical-align: middle; transition: opacity 0.3s; cursor: pointer;">⚙️</a>
+          <a href="#admin-login" id="adminSecretTrigger" class="admin-hidden-trigger" title="Panel Admin" aria-label="Panel Admin" style="opacity: 0; display: inline-block; margin-left: 6px; text-decoration: none; font-size: 0.85rem; vertical-align: middle; transition: opacity 0.3s; cursor: pointer;">⚙️</a>
         </div>
         <div>Didesain dengan Cinta di Kaki Gunung Rinjani, Lombok</div>
       </div>
@@ -1058,6 +1058,42 @@
           Pilih & Hitung Reservasi Kamar Ini
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       ADMIN LOGIN MODAL (PASSWORD: 122027)
+       ========================================================================== -->
+  <div class="modal-overlay" id="adminLoginModal" role="dialog" aria-modal="true" aria-labelledby="adminLoginTitle">
+    <div class="admin-login-box">
+      <button class="close-btn" id="closeAdminLoginModal" aria-label="Tutup Login">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      
+      <div style="text-align: center; margin-bottom: 24px;">
+        <img src="images/logo.png" alt="Logo Bale Keluarga" style="width: 76px; height: 76px; object-fit: contain; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));">
+        <h3 id="adminLoginTitle" style="font-size: 1.35rem; font-weight: 800; color: #1e293b; margin-bottom: 4px;">Masuk Panel Admin</h3>
+        <p style="font-size: 0.88rem; color: #64748b; margin: 0;">Bale Keluarga Homestay Sembalun</p>
+      </div>
+
+      <form id="adminLoginForm">
+        <div style="margin-bottom: 20px; text-align: left;">
+          <label for="adminPassInput" style="display: block; font-size: 0.88rem; font-weight: 700; color: #334155; margin-bottom: 8px;">Kata Sandi Admin</label>
+          <div style="position: relative;">
+            <input type="password" id="adminPassInput" class="admin-login-input" placeholder="Masukkan sandi (122027)..." required autocomplete="current-password">
+            <button type="button" id="toggleAdminPassBtn" onclick="toggleAdminPassVisibility()" aria-label="Lihat Sandi" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #64748b; padding: 6px; display: flex; align-items: center; justify-content: center;">
+              <svg id="adminPassEyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
+          </div>
+          <div id="adminLoginError" style="display: none; color: #dc2626; font-size: 0.84rem; margin-top: 8px; font-weight: 600; padding: 8px 12px; background: #fef2f2; border-radius: 8px; border: 1px solid #fecaca;">
+            Kata sandi salah! Silakan coba lagi.
+          </div>
+        </div>
+
+        <button type="submit" id="btnSubmitAdminLogin" class="admin-login-btn">
+          Masuk ke Panel Admin
+        </button>
+      </form>
     </div>
   </div>
 

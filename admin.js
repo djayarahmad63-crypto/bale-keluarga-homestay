@@ -41,6 +41,7 @@ const defaultFactoryData = {
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
+  checkAdminAuth();
   setupNavigationTabs();
   await loadInitialData();
   bindMasterSaveButton();
@@ -1216,3 +1217,62 @@ function showToast(message) {
     toast.classList.remove('show');
   }, 3500);
 }
+
+// 17. Admin Authentication Shield (Password: 122027)
+function checkAdminAuth() {
+  const isAuth = sessionStorage.getItem('bale_admin_auth') === '122027';
+  const shield = document.getElementById('adminAuthShield');
+  if (isAuth) {
+    if (shield) shield.style.display = 'none';
+  } else {
+    if (shield) {
+      shield.style.display = 'flex';
+      const input = document.getElementById('shieldPassInput');
+      if (input) setTimeout(() => input.focus(), 150);
+    }
+  }
+}
+
+function handleShieldLogin(e) {
+  e.preventDefault();
+  const input = document.getElementById('shieldPassInput');
+  const errorEl = document.getElementById('shieldErrorMsg');
+  const btn = document.getElementById('btnShieldSubmit');
+
+  if (input && input.value.trim() === '122027') {
+    sessionStorage.setItem('bale_admin_auth', '122027');
+    if (errorEl) errorEl.style.display = 'none';
+    if (btn) {
+      btn.textContent = 'Berhasil Masuk...';
+      btn.style.background = '#16a34a';
+    }
+    setTimeout(() => {
+      const shield = document.getElementById('adminAuthShield');
+      if (shield) shield.style.display = 'none';
+    }, 350);
+  } else {
+    if (errorEl) {
+      errorEl.style.display = 'block';
+      errorEl.textContent = 'Kata sandi salah! Silakan coba lagi.';
+    }
+    if (input) {
+      input.focus();
+      input.select();
+    }
+  }
+}
+
+function toggleShieldPassVisibility() {
+  const input = document.getElementById('shieldPassInput');
+  if (input) {
+    input.type = input.type === 'password' ? 'text' : 'password';
+  }
+}
+
+function adminLogout() {
+  if (confirm('Apakah Anda yakin ingin keluar dari Panel Admin?')) {
+    sessionStorage.removeItem('bale_admin_auth');
+    window.location.href = 'index.html';
+  }
+}
+

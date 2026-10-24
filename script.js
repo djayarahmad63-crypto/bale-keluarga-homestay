@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initBookingCalculator();
   initGalleryFilters();
   initFaqAccordion();
+  initAdminLoginModal();
 });
 
 // Load Data and Hydrate DOM Elements
@@ -593,4 +594,83 @@ function initFaqAccordion() {
       });
     }
   });
+}
+
+// 8. Admin Secret Login Modal (Password: 122027)
+function initAdminLoginModal() {
+  const trigger = document.getElementById('adminSecretTrigger');
+  const modal = document.getElementById('adminLoginModal');
+  const form = document.getElementById('adminLoginForm');
+  const passInput = document.getElementById('adminPassInput');
+  const errorMsg = document.getElementById('adminLoginError');
+  const closeBtn = document.getElementById('closeAdminLoginModal');
+
+  if (trigger && modal) {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      // If already logged in this session, navigate directly
+      if (sessionStorage.getItem('bale_admin_auth') === '122027') {
+        window.location.href = 'admin.html';
+        return;
+      }
+      modal.classList.add('active');
+      if (errorMsg) errorMsg.style.display = 'none';
+      if (passInput) {
+        passInput.value = '';
+        setTimeout(() => passInput.focus(), 150);
+      }
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+      });
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+      }
+    });
+  }
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const enteredPass = passInput ? passInput.value.trim() : '';
+      if (enteredPass === '122027') {
+        sessionStorage.setItem('bale_admin_auth', '122027');
+        if (errorMsg) errorMsg.style.display = 'none';
+        const submitBtn = document.getElementById('btnSubmitAdminLogin');
+        if (submitBtn) {
+          submitBtn.textContent = 'Berhasil Masuk...';
+          submitBtn.style.background = '#16a34a';
+        }
+        setTimeout(() => {
+          window.location.href = 'admin.html';
+        }, 350);
+      } else {
+        if (errorMsg) {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'Kata sandi salah! Silakan coba lagi.';
+        }
+        if (passInput) {
+          passInput.focus();
+          passInput.select();
+        }
+      }
+    });
+  }
+}
+
+function toggleAdminPassVisibility() {
+  const input = document.getElementById('adminPassInput');
+  if (!input) return;
+  input.type = input.type === 'password' ? 'text' : 'password';
 }
