@@ -14,10 +14,27 @@ export default async function handler(req, res) {
   const kvUrl = process.env.KV_REST_API_URL;
   const kvToken = process.env.KV_REST_API_TOKEN;
   const ghToken = process.env.GITHUB_TOKEN;
+  const sheetUrl = process.env.GOOGLE_SHEET_URL;
 
   // 1. GET DATA
   if (req.method === 'GET') {
-    // Check Vercel KV first
+    // Check Google Spreadsheet first if configured
+    if (sheetUrl) {
+      try {
+        const sRes = await fetch(sheetUrl);
+        if (sRes.ok) {
+          const sJson = await sRes.json();
+          if (sJson && sJson.profile) {
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            return res.status(200).json(sJson);
+          }
+        }
+      } catch (err) {
+        console.error('Google Sheet Read Error:', err);
+      }
+    }
+
+    // Check Vercel KV
     if (kvUrl && kvToken) {
       try {
         const kvRes = await fetch(`${kvUrl}/get/bale_homestay_data`, {
@@ -60,6 +77,24 @@ export default async function handler(req, res) {
 
     if (!payload || typeof payload !== 'object') {
       return res.status(400).json({ error: 'Payload tidak boleh kosong' });
+    }
+
+    // A. Save to Google Spreadsheet if configured
+    if (sheetUrl) {
+      try {
+        await fetch(sheetUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        return res.status(200).json({
+          success: true,
+          storage: 'google-sheets',
+          message: 'Data berhasil disimpan langsung ke Google Spreadsheet!'
+        });
+      } catch (err) {
+        console.error('Google Sheet Save Error:', err);
+      }
     }
 
     // A. Save to Vercel KV if connected

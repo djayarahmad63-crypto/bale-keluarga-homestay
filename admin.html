@@ -103,7 +103,11 @@
         <span>FAQ (Tanya Jawab)</span>
       </button>
 
-      <div class="sidebar-section-label">Sistem</div>
+      <div class="sidebar-section-label">Sistem & Integrasi</div>
+      <button class="nav-item-btn" data-tab="integrations">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        <span>Database & Cloud</span>
+      </button>
       <button class="nav-item-btn" data-tab="backup">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         <span>Backup & Reset</span>
@@ -497,6 +501,113 @@
 
         <div class="dynamic-items-grid" id="adminFaqsList">
           <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           TAB: INTEGRASI DATABASE GOOGLE SPREADSHEET & CLOUDINARY
+           ========================================================================== -->
+      <section class="tab-pane" id="pane-integrations">
+        <div class="panel-header">
+          <h1 class="panel-title">Database Google Spreadsheet & Cloudinary Storage</h1>
+          <p class="panel-subtitle">Gunakan Google Spreadsheet sebagai database real-time dan Cloudinary untuk menyimpan foto yang diunggah dari memori HP / laptop.</p>
+        </div>
+
+        <!-- 1. GOOGLE SPREADSHEET CARD -->
+        <div class="admin-card" style="border-left: 4px solid #10b981; margin-bottom: 24px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 class="admin-card-title" style="margin:0; display:flex; align-items:center; gap:8px;">
+              <span>📊 Database Google Spreadsheet (Real-time)</span>
+            </h3>
+            <span id="sheetStatusBadge" style="padding:4px 12px; border-radius:20px; font-size:0.82rem; font-weight:700; background:#f1f5f9; color:#475569;">
+              Belum Tersambung
+            </span>
+          </div>
+
+          <p style="color:var(--admin-text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:18px;">
+            Dengan menghubungkan Google Spreadsheet, setiap kali Anda klik <strong>"Simpan Semua Perubahan"</strong>, data langsung terupdate ke Google Sheet dan otomatis langsung berubah di halaman website untuk semua pengunjung seketika itu juga!
+          </p>
+
+          <div style="margin-bottom:16px;">
+            <label style="display:block; font-size:0.85rem; font-weight:700; color:#334155; margin-bottom:6px;">URL Aplikasi Web Google Apps Script (Deployment URL):</label>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <input type="url" id="googleSheetUrlInput" placeholder="https://script.google.com/macros/s/.../exec" style="flex:1; min-width:280px; padding:10px 14px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.9rem; outline:none;">
+              <button type="button" class="btn-add-new-item" onclick="saveGoogleSheetUrl()" style="background:#10b981;">Simpan URL</button>
+              <button type="button" class="btn-secondary" onclick="testGoogleSheetConnection()">Tes Koneksi</button>
+            </div>
+            <div id="sheetStatusMsg" style="margin-top:8px; font-size:0.84rem; font-weight:600; display:none;"></div>
+          </div>
+
+          <!-- PANDUAN GOOGLE APPS SCRIPT -->
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <strong style="color:#0f172a; font-size:0.95rem;">Cara Setup Google Spreadsheet (Hanya 2 Menit):</strong>
+              <button type="button" onclick="copyAppsScriptCode()" style="padding:6px 12px; background:#0f172a; color:#fff; border:none; border-radius:6px; font-size:0.8rem; font-weight:600; cursor:pointer;">
+                📋 Salin Kode Apps Script
+              </button>
+            </div>
+            <ol style="margin:0 0 12px 18px; padding:0; font-size:0.86rem; color:#475569; line-height:1.6;">
+              <li>Buka <a href="https://sheets.new" target="_blank" style="color:#10b981; font-weight:700;">Google Sheets</a> ➔ Buat spreadsheet baru (beri nama bebas, misal: <em>Database Bale Keluarga</em>).</li>
+              <li>Klik menu <strong>Ekstensi (Extensions)</strong> ➔ <strong>Apps Script</strong>.</li>
+              <li>Hapus semua teks yang ada, lalu klik tombol <strong>"Salin Kode Apps Script"</strong> di atas dan tempel (paste).</li>
+              <li>Klik tombol <strong>Terapkan (Deploy)</strong> di kanan atas ➔ <strong>Penerapan baru (New deployment)</strong>.</li>
+              <li>Pilih jenis (roda gigi): <strong>Aplikasi web (Web app)</strong>.</li>
+              <li>Pada bagian <em>"Siapa yang memiliki akses (Who has access)"</em>, pilih <strong>Siapa saja (Anyone)</strong>.</li>
+              <li>Klik <strong>Terapkan (Deploy)</strong> ➔ Berikan izin akses (Authorize) ➔ Salin <strong>URL Aplikasi Web</strong> (yang berakhiran <code>/exec</code>) dan tempel ke kolom di atas.</li>
+            </ol>
+            <div style="font-size:0.8rem; color:#64748b; background:#e0f2fe; padding:8px 12px; border-radius:6px;">
+              💡 <em>Setelah URL tersimpan, seluruh data homestay Anda tersimpan aman di Google Drive Anda sendiri dan sinkron otomatis dengan website.</em>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. CLOUDINARY CARD -->
+        <div class="admin-card" style="border-left: 4px solid #3b82f6;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 class="admin-card-title" style="margin:0; display:flex; align-items:center; gap:8px;">
+              <span>☁️ Penyimpanan Foto Cloudinary (Upload Internal Storage)</span>
+            </h3>
+            <span id="cloudinaryStatusBadge" style="padding:4px 12px; border-radius:20px; font-size:0.82rem; font-weight:700; background:#f1f5f9; color:#475569;">
+              Penyimpanan Lokal
+            </span>
+          </div>
+
+          <p style="color:var(--admin-text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:18px;">
+            Saat Anda memilih gambar/foto dari galeri HP atau memori laptop (internal storage), foto akan langsung otomatis diunggah ke <strong>Cloudinary CDN</strong>, menghasilkan tautan gambar resmi berkecepatan tinggi yang dapat dimuat oleh seluruh pengunjung.
+          </p>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:14px; margin-bottom:16px;">
+            <div>
+              <label style="display:block; font-size:0.85rem; font-weight:700; color:#334155; margin-bottom:6px;">Cloudinary Cloud Name:</label>
+              <input type="text" id="cloudinaryCloudNameInput" placeholder="Contoh: djayarahmad" style="width:100%; padding:10px 14px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="display:block; font-size:0.85rem; font-weight:700; color:#334155; margin-bottom:6px;">Upload Preset Name (Unsigned):</label>
+              <input type="text" id="cloudinaryPresetInput" placeholder="Contoh: bale_keluarga" style="width:100%; padding:10px 14px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box;">
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-bottom:18px;">
+            <button type="button" class="btn-add-new-item" onclick="saveCloudinaryConfig()" style="background:#3b82f6;">Simpan Pengaturan Cloudinary</button>
+            <button type="button" class="btn-secondary" onclick="testCloudinaryConfig()">Uji Pengaturan</button>
+          </div>
+
+          <!-- PANDUAN CLOUDINARY -->
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:18px;">
+            <strong style="color:#0f172a; font-size:0.95rem; display:block; margin-bottom:10px;">Cara Mendapatkan Cloud Name & Upload Preset Cloudinary (Gratis):</strong>
+            <ol style="margin:0 0 10px 18px; padding:0; font-size:0.86rem; color:#475569; line-height:1.6;">
+              <li>Daftar akun gratis di <a href="https://cloudinary.com" target="_blank" style="color:#3b82f6; font-weight:700;">Cloudinary.com</a>.</li>
+              <li>Di halaman <strong>Dashboard</strong> utama, salin tulisan di kolom <strong>Cloud Name</strong>.</li>
+              <li>Buka menu <strong>Settings (ikon roda gigi)</strong> di pojok kiri bawah ➔ klik tab <strong>Upload</strong>.</li>
+              <li>Gulir ke bawah sampai menemukan bagian <strong>Upload presets</strong> ➔ Klik <strong>Add upload preset</strong>.</li>
+              <li>Ubah opsi <strong>Signing Mode</strong> dari *Signed* menjadi <strong>Unsigned</strong>.</li>
+              <li>Salin nama preset tersebut (atau ubah namanya sesuai keinginan, misal: <em>bale_keluarga</em>) ➔ Klik <strong>Save</strong>.</li>
+              <li>Tempel Cloud Name dan Preset Name ke kolom formulir di atas lalu klik Simpan.</li>
+            </ol>
+            <div style="font-size:0.8rem; color:#64748b; background:#eff6ff; padding:8px 12px; border-radius:6px;">
+              📷 <em>Setelah Cloudinary aktif, setiap foto yang Anda pilih dari galeri HP atau laptop akan otomatis ter-upload ke Cloudinary dalam hitungan detik.</em>
+            </div>
+          </div>
         </div>
       </section>
 

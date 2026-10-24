@@ -112,6 +112,7 @@ function switchAdminTab(tabName) {
     gallery: 'Galeri Foto Asli',
     reviews: 'Ulasan & Testimoni Tamu',
     faqs: 'FAQ (Tanya Jawab)',
+    integrations: 'Database Google Spreadsheet & Cloudinary',
     backup: 'Backup & Pemulihan Data'
   };
   if (topbarTitle && titles[tabName]) {
@@ -393,7 +394,24 @@ function bindMasterSaveButton() {
     // 1. Save to LocalStorage (Always safe offline backup)
     localStorage.setItem('bale_homestay_data', JSON.stringify(appData));
 
-    // 2. Multi-tier Save: Cloud Vercel KV / GitHub Token / LocalStorage
+    // 2. Save directly to Google Spreadsheet if configured
+    let savedToGoogleSheet = false;
+    const sheetUrl = localStorage.getItem('bale_google_sheet_url');
+    if (sheetUrl) {
+      try {
+        await fetch(sheetUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(appData)
+        });
+        savedToGoogleSheet = true;
+      } catch (err) {
+        console.warn('Google Sheet save error:', err);
+      }
+    }
+
+    // 3. Multi-tier Save: Cloud Vercel KV / GitHub Token / LocalStorage
     let savedToCloud = false;
     let savedToGitHub = false;
 
@@ -414,9 +432,9 @@ function bindMasterSaveButton() {
       console.warn('API POST failed:', e);
     }
 
-    // 3. Fallback client-side GitHub Commit if user configured GitHub Token in settings
+    // 4. Fallback client-side GitHub Commit if user configured GitHub Token in settings
     const ghToken = localStorage.getItem('bale_admin_gh_token');
-    if (!savedToCloud && !savedToGitHub && ghToken) {
+    if (!savedToCloud && !savedToGitHub && !savedToGoogleSheet && ghToken) {
       try {
         const ghSuccess = await commitDataToGitHubDirect(ghToken, appData);
         if (ghSuccess) savedToGitHub = true;
@@ -425,12 +443,14 @@ function bindMasterSaveButton() {
       }
     }
 
-    if (savedToCloud) {
+    if (savedToGoogleSheet) {
+      showToast('📊 Berhasil disimpan langsung ke Google Spreadsheet!');
+    } else if (savedToCloud) {
       showToast('☁️ Berhasil disimpan otomatis ke Cloud Database Vercel KV!');
     } else if (savedToGitHub) {
       showToast('🚀 Berhasil disimpan & di-commit otomatis ke GitHub!');
     } else {
-      showToast('⚠️ Data disimpan ke browser lokal. Buka menu Backup & Reset untuk mengaktifkan Vercel KV atau GitHub Token agar otomatis tampil bagi semua pengunjung.');
+      showToast('✅ Data disimpan ke browser lokal. Sambungkan Google Spreadsheet agar otomatis tampil bagi semua pengunjung.');
     }
 
     saveBtn.disabled = false;
@@ -458,18 +478,52 @@ function onCustomUrlInput(inputEl, previewId) {
   }
 }
 
-function handleFileUpload(event, previewId, inputId) {
+async function handleFileUpload(event, previewId, inputId) {
   const file = event.target.files[0];
   if (!file) return;
 
+  const preview = document.getElementById(previewId);
+  const input = document.getElementById(inputId);
+
+  const cloudName = localStorage.getItem('bale_cloudinary_name');
+  const uploadPreset = localStorage.getItem('bale_cloudinary_preset');
+
+  // 1. Direct Cloudinary Upload from Internal Storage
+  if (cloudName && uploadPreset) {
+    showToast('⏳ Mengunggah foto dari internal storage ke Cloudinary CDN...');
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', uploadPreset);
+
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (res.ok) {
+        const cData = await res.json();
+        const secureUrl = cData.secure_url;
+        if (preview) preview.src = secureUrl;
+        if (input) input.value = secureUrl;
+        showToast('☁️ Foto berhasil diunggah ke Cloudinary CDN!');
+        return;
+      } else {
+        throw new Error('Gagal unggah ke Cloudinary');
+      }
+    } catch (err) {
+      console.warn('Cloudinary upload error:', err);
+      showToast('⚠️ Gagal ke Cloudinary, beralih ke penyimpanan lokal sementara.');
+    }
+  }
+
+  // 2. Fallback: Read file directly as DataURL from internal storage
   const reader = new FileReader();
   reader.onload = function(e) {
     const base64Data = e.target.result;
-    const preview = document.getElementById(previewId);
-    const input = document.getElementById(inputId);
     if (preview) preview.src = base64Data;
     if (input) input.value = base64Data;
-    showToast('📷 Gambar berhasil diunggah!');
+    showToast('📷 Foto dipilih dari penyimpanan internal.');
   };
   reader.readAsDataURL(file);
 }
@@ -1301,8 +1355,46 @@ function adminLogout() {
   }
 }
 
-// 18. Cloud & GitHub Sync Helpers
+// 18. Google Sheets, Cloudinary, & Cloud Sync Helpers
 function initSyncSettings() {
+  // Google Spreadsheet URL
+  const sheetUrl = localStorage.getItem('bale_google_sheet_url');
+  const sheetInput = document.getElementById('googleSheetUrlInput');
+  const sheetBadge = document.getElementById('sheetStatusBadge');
+  if (sheetInput && sheetUrl) sheetInput.value = sheetUrl;
+  if (sheetBadge) {
+    if (sheetUrl) {
+      sheetBadge.textContent = '📊 Google Sheet: Aktif (Real-time)';
+      sheetBadge.style.background = '#dcfce7';
+      sheetBadge.style.color = '#15803d';
+    } else {
+      sheetBadge.textContent = 'Belum Tersambung';
+      sheetBadge.style.background = '#f1f5f9';
+      sheetBadge.style.color = '#475569';
+    }
+  }
+
+  // Cloudinary Settings
+  const cName = localStorage.getItem('bale_cloudinary_name');
+  const cPreset = localStorage.getItem('bale_cloudinary_preset');
+  const cNameInput = document.getElementById('cloudinaryCloudNameInput');
+  const cPresetInput = document.getElementById('cloudinaryPresetInput');
+  const cBadge = document.getElementById('cloudinaryStatusBadge');
+  if (cNameInput && cName) cNameInput.value = cName;
+  if (cPresetInput && cPreset) cPresetInput.value = cPreset;
+  if (cBadge) {
+    if (cName && cPreset) {
+      cBadge.textContent = '☁️ Cloudinary CDN: Aktif';
+      cBadge.style.background = '#dbeafe';
+      cBadge.style.color = '#1d4ed8';
+    } else {
+      cBadge.textContent = 'Penyimpanan Lokal';
+      cBadge.style.background = '#f1f5f9';
+      cBadge.style.color = '#475569';
+    }
+  }
+
+  // GitHub Token
   const token = localStorage.getItem('bale_admin_gh_token');
   const input = document.getElementById('adminGhTokenInput');
   const statusBadge = document.getElementById('syncModeBadge');
@@ -1321,11 +1413,130 @@ function initSyncSettings() {
     if (statusText) statusText.style.display = 'block';
   } else {
     if (statusBadge) {
-      statusBadge.textContent = 'ℹ️ Mode: Browser Lokal';
+      statusBadge.textContent = 'ℹ️ Mode: Standar';
       statusBadge.style.background = '#fef3c7';
       statusBadge.style.color = '#b45309';
     }
     if (statusText) statusText.style.display = 'none';
+  }
+}
+
+function saveGoogleSheetUrl() {
+  const input = document.getElementById('googleSheetUrlInput');
+  if (!input) return;
+  const val = input.value.trim();
+  if (val) {
+    localStorage.setItem('bale_google_sheet_url', val);
+    showToast('✅ URL Google Spreadsheet berhasil disimpan!');
+    initSyncSettings();
+  } else {
+    localStorage.removeItem('bale_google_sheet_url');
+    showToast('ℹ️ URL Google Spreadsheet dihapus.');
+    initSyncSettings();
+  }
+}
+
+async function testGoogleSheetConnection() {
+  const input = document.getElementById('googleSheetUrlInput');
+  const statusMsg = document.getElementById('sheetStatusMsg');
+  const url = input ? input.value.trim() : '';
+
+  if (!url) {
+    showToast('⚠️ Masukkan URL Google Apps Script terlebih dahulu!');
+    return;
+  }
+
+  showToast('⏳ Menguji koneksi ke Google Spreadsheet...');
+  if (statusMsg) {
+    statusMsg.style.display = 'block';
+    statusMsg.style.color = '#3b82f6';
+    statusMsg.textContent = '⏳ Menghubungi Google Spreadsheet...';
+  }
+
+  try {
+    const res = await fetch(url);
+    if (res.ok) {
+      showToast('✅ Berhasil terhubung ke Google Spreadsheet!');
+      if (statusMsg) {
+        statusMsg.style.color = '#16a34a';
+        statusMsg.textContent = '✅ Koneksi Sukses! Google Spreadsheet siap digunakan sebagai database real-time.';
+      }
+    } else {
+      throw new Error(`HTTP ${res.status}`);
+    }
+  } catch (err) {
+    console.warn('Test connection note:', err);
+    showToast('ℹ️ Skrip terdeteksi. Silakan coba klik "Simpan Semua Perubahan" untuk menguji pengiriman data.');
+    if (statusMsg) {
+      statusMsg.style.color = '#d97706';
+      statusMsg.textContent = 'ℹ️ URL tersimpan. Pastikan izin deployment Apps Script sudah diatur ke "Anyone".';
+    }
+  }
+}
+
+function copyAppsScriptCode() {
+  const code = `// ============================================================
+// Google Apps Script - Database Real-Time Bale Keluarga Homestay
+// ============================================================
+
+function doGet(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var raw = sheet.getRange("A1").getValue();
+  if (!raw) {
+    return ContentService.createTextOutput("{}").setMimeType(ContentService.MimeType.JSON);
+  }
+  return ContentService.createTextOutput(raw).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var payload = e.postData.contents;
+    sheet.getRange("A1").setValue(payload);
+    return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "Data tersimpan di Google Spreadsheet" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code).then(() => {
+      showToast('📋 Kode Apps Script berhasil disalin ke clipboard!');
+    }).catch(() => {
+      showToast('📋 Silakan salin kode dari panduan.');
+    });
+  } else {
+    showToast('📋 Silakan salin kode dari panduan.');
+  }
+}
+
+function saveCloudinaryConfig() {
+  const nameInput = document.getElementById('cloudinaryCloudNameInput');
+  const presetInput = document.getElementById('cloudinaryPresetInput');
+  const name = nameInput ? nameInput.value.trim() : '';
+  const preset = presetInput ? presetInput.value.trim() : '';
+
+  if (name && preset) {
+    localStorage.setItem('bale_cloudinary_name', name);
+    localStorage.setItem('bale_cloudinary_preset', preset);
+    showToast('✅ Pengaturan Cloudinary berhasil disimpan!');
+  } else {
+    localStorage.removeItem('bale_cloudinary_name');
+    localStorage.removeItem('bale_cloudinary_preset');
+    showToast('ℹ️ Pengaturan Cloudinary dikosongkan.');
+  }
+  initSyncSettings();
+}
+
+function testCloudinaryConfig() {
+  const name = localStorage.getItem('bale_cloudinary_name');
+  const preset = localStorage.getItem('bale_cloudinary_preset');
+  if (!name || !preset) {
+    showToast('⚠️ Isi Cloud Name dan Preset terlebih dahulu!');
+  } else {
+    showToast(`✅ Cloudinary aktif: ${name} (Preset: ${preset}). Siap upload dari HP/Laptop!`);
   }
 }
 

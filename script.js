@@ -52,17 +52,37 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Load Data and Hydrate DOM Elements
 async function loadAndHydrateData() {
-  try {
-    const res = await fetch('/api/data');
-    if (res.ok) {
-      homestayData = await res.json();
-    } else {
-      throw new Error('API request failed');
+  // 1. Check if Google Sheet Database is configured in localStorage
+  const sheetUrl = localStorage.getItem('bale_google_sheet_url');
+  if (sheetUrl) {
+    try {
+      const sRes = await fetch(sheetUrl);
+      if (sRes.ok) {
+        const sData = await sRes.json();
+        if (sData && sData.profile) {
+          homestayData = sData;
+          localStorage.setItem('bale_homestay_data', JSON.stringify(sData));
+        }
+      }
+    } catch (e) {
+      console.warn('Google Sheet fetch error:', e);
     }
-  } catch (err) {
-    const local = localStorage.getItem('bale_homestay_data');
-    if (local) {
-      homestayData = JSON.parse(local);
+  }
+
+  // 2. Fallback to /api/data or local storage
+  if (!homestayData) {
+    try {
+      const res = await fetch('/api/data', { cache: 'no-store' });
+      if (res.ok) {
+        homestayData = await res.json();
+      } else {
+        throw new Error('API request failed');
+      }
+    } catch (err) {
+      const local = localStorage.getItem('bale_homestay_data');
+      if (local) {
+        homestayData = JSON.parse(local);
+      }
     }
   }
 
