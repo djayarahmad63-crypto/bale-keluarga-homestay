@@ -4,6 +4,8 @@
 
 Landing page premium, responsif, dan siap pakai untuk **Bale Keluarga Homestay Sembalun**, Lombok Timur, lengkap dengan **Panel Admin Interaktif** untuk kustomisasi seluruh konten, harga, teks, dan foto secara langsung.
 
+🌐 **Website Resmi**: **[https://www.penginapansembalun.my.id/](https://www.penginapansembalun.my.id/)**
+
 ---
 
 ## ⚡ Deploy Instan ke Vercel
