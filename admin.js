@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupNavigationTabs();
   await loadInitialData();
   bindMasterSaveButton();
+  initSyncSettings();
 });
 
 // 1. Load Initial Data (API or LocalStorage or Default)
@@ -389,10 +390,13 @@ function bindMasterSaveButton() {
     appData.profile.badgeText = document.getElementById('profBadgeTextInput').value;
     appData.profile.aboutImage = document.getElementById('aboutImgCustomInput').value || 'images/hero.jpg';
 
-    // 1. Save to LocalStorage
+    // 1. Save to LocalStorage (Always safe offline backup)
     localStorage.setItem('bale_homestay_data', JSON.stringify(appData));
 
-    // 2. Save to Server Disk via POST /api/data
+    // 2. Multi-tier Save: Cloud Vercel KV / GitHub Token / LocalStorage
+    let savedToCloud = false;
+    let savedToGitHub = false;
+
     try {
       const res = await fetch('/api/data', {
         method: 'POST',
@@ -400,12 +404,33 @@ function bindMasterSaveButton() {
         body: JSON.stringify(appData, null, 2)
       });
       if (res.ok) {
-        showToast('✅ Seluruh data & foto berhasil disimpan ke Landing Page!');
-      } else {
-        showToast('✅ Data disimpan ke browser lokal!');
+        const result = await res.json();
+        if (result && result.success) {
+          if (result.storage === 'vercel-kv') savedToCloud = true;
+          if (result.storage === 'github') savedToGitHub = true;
+        }
       }
     } catch (e) {
-      showToast('✅ Data disimpan ke memori browser lokal!');
+      console.warn('API POST failed:', e);
+    }
+
+    // 3. Fallback client-side GitHub Commit if user configured GitHub Token in settings
+    const ghToken = localStorage.getItem('bale_admin_gh_token');
+    if (!savedToCloud && !savedToGitHub && ghToken) {
+      try {
+        const ghSuccess = await commitDataToGitHubDirect(ghToken, appData);
+        if (ghSuccess) savedToGitHub = true;
+      } catch (err) {
+        console.error('Client GitHub commit error:', err);
+      }
+    }
+
+    if (savedToCloud) {
+      showToast('☁️ Berhasil disimpan otomatis ke Cloud Database Vercel KV!');
+    } else if (savedToGitHub) {
+      showToast('🚀 Berhasil disimpan & di-commit otomatis ke GitHub!');
+    } else {
+      showToast('⚠️ Data disimpan ke browser lokal. Buka menu Backup & Reset untuk mengaktifkan Vercel KV atau GitHub Token agar otomatis tampil bagi semua pengunjung.');
     }
 
     saveBtn.disabled = false;
@@ -1275,4 +1300,91 @@ function adminLogout() {
     window.location.href = 'index.html';
   }
 }
+
+// 18. Cloud & GitHub Sync Helpers
+function initSyncSettings() {
+  const token = localStorage.getItem('bale_admin_gh_token');
+  const input = document.getElementById('adminGhTokenInput');
+  const statusBadge = document.getElementById('syncModeBadge');
+  const statusText = document.getElementById('ghTokenStatusText');
+
+  if (input && token) {
+    input.value = token;
+  }
+
+  if (token) {
+    if (statusBadge) {
+      statusBadge.textContent = '🚀 GitHub Sync: Aktif';
+      statusBadge.style.background = '#dcfce7';
+      statusBadge.style.color = '#15803d';
+    }
+    if (statusText) statusText.style.display = 'block';
+  } else {
+    if (statusBadge) {
+      statusBadge.textContent = 'ℹ️ Mode: Browser Lokal';
+      statusBadge.style.background = '#fef3c7';
+      statusBadge.style.color = '#b45309';
+    }
+    if (statusText) statusText.style.display = 'none';
+  }
+}
+
+function saveAdminGitHubToken() {
+  const input = document.getElementById('adminGhTokenInput');
+  if (!input) return;
+  const token = input.value.trim();
+  if (token) {
+    localStorage.setItem('bale_admin_gh_token', token);
+    showToast('✅ Token GitHub berhasil disimpan!');
+    initSyncSettings();
+  } else {
+    localStorage.removeItem('bale_admin_gh_token');
+    showToast('ℹ️ Token GitHub dihapus.');
+    initSyncSettings();
+  }
+}
+
+async function commitDataToGitHubDirect(token, data) {
+  const repo = 'djayarahmad63-crypto/bale-keluarga-homestay-sembalun';
+  try {
+    // 1. Get SHA
+    const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+      headers: {
+        Authorization: `token ${token.trim()}`,
+        Accept: 'application/vnd.github.v3+json'
+      }
+    });
+
+    let sha = null;
+    if (getRes.ok) {
+      const shaJson = await getRes.json();
+      sha = shaJson.sha;
+    }
+
+    // 2. Encode UTF-8 content to base64
+    const jsonStr = JSON.stringify(data, null, 2);
+    const base64 = btoa(unescape(encodeURIComponent(jsonStr)));
+
+    // 3. Put content
+    const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token.trim()}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/vnd.github.v3+json'
+      },
+      body: JSON.stringify({
+        message: 'chore: update homestay data via admin panel',
+        content: base64,
+        sha: sha || undefined
+      })
+    });
+
+    return putRes.ok;
+  } catch (err) {
+    console.error('commitDataToGitHubDirect error:', err);
+    return false;
+  }
+}
+
 

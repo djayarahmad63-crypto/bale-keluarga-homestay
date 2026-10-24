@@ -525,6 +525,56 @@
           </div>
         </div>
 
+        <!-- CLOUD & GITHUB SYNC CARD -->
+        <div class="admin-card" style="border-left: 4px solid var(--admin-primary);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 class="admin-card-title" style="margin:0; display:flex; align-items:center; gap:8px;">
+              <span>☁️ Sinkronisasi Data Otomatis untuk Semua Pengunjung</span>
+            </h3>
+            <span id="syncModeBadge" style="padding:4px 10px; border-radius:20px; font-size:0.8rem; font-weight:700; background:#f1f5f9; color:#475569;">
+              Memeriksa Status...
+            </span>
+          </div>
+
+          <p style="color:var(--admin-text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:18px;">
+            Agar perubahan data harga, teks, dan foto langsung otomatis tampil untuk seluruh pengunjung di HP dan komputer mereka, Anda dapat memilih salah satu dari 2 metode otomatis di bawah ini:
+          </p>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:16px;">
+            <!-- Option A: Vercel KV -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                <strong style="color:#0f172a; font-size:0.95rem;">⭐ Pilihan 1: Vercel KV Database (Resmi & Gratis)</strong>
+              </div>
+              <p style="font-size:0.84rem; color:#64748b; line-height:1.5; margin-bottom:12px;">
+                Aktifkan database cloud gratis Vercel KV di dashboard Vercel Anda. Perubahan akan tersimpan real-time dalam hitungan detik.
+              </p>
+              <a href="https://vercel.com/dashboard" target="_blank" style="display:inline-block; font-size:0.82rem; font-weight:700; color:var(--admin-primary); text-decoration:none;">
+                Buka Vercel Storage ➔
+              </a>
+            </div>
+
+            <!-- Option B: GitHub Token -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                <strong style="color:#0f172a; font-size:0.95rem;">🚀 Pilihan 2: Sinkron Otomatis ke GitHub</strong>
+              </div>
+              <p style="font-size:0.84rem; color:#64748b; line-height:1.5; margin-bottom:10px;">
+                Masukkan GitHub Personal Access Token Anda. Setiap klik tombol Simpan, data langsung otomatis di-commit ke repositori GitHub.
+              </p>
+              <div style="display:flex; gap:8px;">
+                <input type="password" id="adminGhTokenInput" placeholder="Token GitHub (ghp_... atau gho_...)" style="flex:1; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.82rem; outline:none;">
+                <button type="button" onclick="saveAdminGitHubToken()" style="padding:8px 14px; background:#0f172a; color:#fff; border:none; border-radius:8px; font-size:0.82rem; font-weight:700; cursor:pointer;">
+                  Simpan Token
+                </button>
+              </div>
+              <div id="ghTokenStatusText" style="font-size:0.8rem; margin-top:6px; color:#16a34a; font-weight:600; display:none;">
+                ✓ Token GitHub tersimpan di browser ini.
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="admin-card" style="border-left: 4px solid var(--admin-danger);">
           <h3 class="admin-card-title" style="color:var(--admin-danger);">Reset ke Pengaturan Awal Pabrik</h3>
           <p style="color:var(--admin-text-muted); margin-bottom:18px;">
