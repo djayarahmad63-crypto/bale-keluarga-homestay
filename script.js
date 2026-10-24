@@ -52,8 +52,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Load Data and Hydrate DOM Elements
 async function loadAndHydrateData() {
-  // 1. Check if Google Sheet Database is configured in localStorage
-  const sheetUrl = localStorage.getItem('bale_google_sheet_url');
+  // 1. Check if Google Sheet Database is configured
+  const defaultSheetUrl = 'https://script.google.com/macros/s/AKfycbz-fWSD4VWqrb8vZqmMNCW9t8DV4UZTR1nWg_VJl71dn4wKHWVRnF49eK-tB2JJP6HuRg/exec';
+  const sheetUrl = localStorage.getItem('bale_google_sheet_url') || defaultSheetUrl;
   if (sheetUrl) {
     try {
       const sRes = await fetch(sheetUrl);

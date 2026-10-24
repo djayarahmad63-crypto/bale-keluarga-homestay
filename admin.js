@@ -394,9 +394,10 @@ function bindMasterSaveButton() {
     // 1. Save to LocalStorage (Always safe offline backup)
     localStorage.setItem('bale_homestay_data', JSON.stringify(appData));
 
-    // 2. Save directly to Google Spreadsheet if configured
+    // 2. Save directly to Google Spreadsheet
     let savedToGoogleSheet = false;
-    const sheetUrl = localStorage.getItem('bale_google_sheet_url');
+    const defaultSheetUrl = 'https://script.google.com/macros/s/AKfycbz-fWSD4VWqrb8vZqmMNCW9t8DV4UZTR1nWg_VJl71dn4wKHWVRnF49eK-tB2JJP6HuRg/exec';
+    const sheetUrl = localStorage.getItem('bale_google_sheet_url') || defaultSheetUrl;
     if (sheetUrl) {
       try {
         await fetch(sheetUrl, {
@@ -1358,20 +1359,15 @@ function adminLogout() {
 // 18. Google Sheets, Cloudinary, & Cloud Sync Helpers
 function initSyncSettings() {
   // Google Spreadsheet URL
-  const sheetUrl = localStorage.getItem('bale_google_sheet_url');
+  const defaultSheetUrl = 'https://script.google.com/macros/s/AKfycbz-fWSD4VWqrb8vZqmMNCW9t8DV4UZTR1nWg_VJl71dn4wKHWVRnF49eK-tB2JJP6HuRg/exec';
+  const sheetUrl = localStorage.getItem('bale_google_sheet_url') || defaultSheetUrl;
   const sheetInput = document.getElementById('googleSheetUrlInput');
   const sheetBadge = document.getElementById('sheetStatusBadge');
-  if (sheetInput && sheetUrl) sheetInput.value = sheetUrl;
+  if (sheetInput) sheetInput.value = sheetUrl;
   if (sheetBadge) {
-    if (sheetUrl) {
-      sheetBadge.textContent = '📊 Google Sheet: Aktif (Real-time)';
-      sheetBadge.style.background = '#dcfce7';
-      sheetBadge.style.color = '#15803d';
-    } else {
-      sheetBadge.textContent = 'Belum Tersambung';
-      sheetBadge.style.background = '#f1f5f9';
-      sheetBadge.style.color = '#475569';
-    }
+    sheetBadge.textContent = '📊 Google Sheet: Aktif (Real-time)';
+    sheetBadge.style.background = '#dcfce7';
+    sheetBadge.style.color = '#15803d';
   }
 
   // Cloudinary Settings

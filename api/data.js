@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   const kvUrl = process.env.KV_REST_API_URL;
   const kvToken = process.env.KV_REST_API_TOKEN;
   const ghToken = process.env.GITHUB_TOKEN;
-  const sheetUrl = process.env.GOOGLE_SHEET_URL;
+  const sheetUrl = process.env.GOOGLE_SHEET_URL || 'https://script.google.com/macros/s/AKfycbz-fWSD4VWqrb8vZqmMNCW9t8DV4UZTR1nWg_VJl71dn4wKHWVRnF49eK-tB2JJP6HuRg/exec';
 
   // 1. GET DATA
   if (req.method === 'GET') {
