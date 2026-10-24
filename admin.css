@@ -6,22 +6,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --admin-sidebar-bg: #122116;
-  --admin-sidebar-hover: #1b3322;
-  --admin-sidebar-active: #24442e;
+  --admin-sidebar-bg: #181220;
+  --admin-sidebar-hover: #251B32;
+  --admin-sidebar-active: #352347;
   
-  --admin-primary: #1c3b24;
-  --admin-primary-light: #2b5936;
-  --admin-gold: #e5a43b;
-  --admin-gold-hover: #f3b44f;
+  --admin-primary: #93278F;
+  --admin-primary-light: #B237AD;
+  --admin-gold: #F59E0B;
+  --admin-gold-hover: #EA580C;
   
-  --admin-bg: #f4f6f4;
+  --admin-bg: #F8F7FA;
   --admin-card-bg: #ffffff;
-  --admin-text-main: #18241a;
-  --admin-text-muted: #647466;
+  --admin-text-main: #21242C;
+  --admin-text-muted: #646977;
   
-  --admin-border: #e2e8e2;
-  --admin-border-focus: #1c3b24;
+  --admin-border: #E5E1EB;
+  --admin-border-focus: #93278F;
   
   --admin-success: #10b981;
   --admin-danger: #ef4444;
