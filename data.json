@@ -1,4 +1,4 @@
-{
+﻿{
   "profile": {
     "brandName": "Bale Keluarga",
     "brandSubtitle": "Homestay Sembalun",
@@ -18,7 +18,7 @@
     "title": "Kehangatan Rumah Keluarga di",
     "highlightWord": "Kaki Gunung Rinjani",
     "description": "Nikmati sejuknya alam Sembalun dengan kenyamanan kamar hangat berair panas, balkon berpanorama gunung megah, kebun stroberi petik sendiri, dan keramahan asli suku Sasak.",
-    "bgImage": "images/hero.jpg",
+    "bgImage": "https://res.cloudinary.com/lsxj03eg/image/upload/v1792849208/bale_keluarga/zo97hebxji78ok5wireg.png",
     "highlight1": "Water Heater 24 Jam",
     "highlight2": "View 360° Rinjani & Pergasingan",
     "highlight3": "Sarapan & Kopi Sembalun"
