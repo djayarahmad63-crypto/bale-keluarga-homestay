@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin | Bale Keluarga Homestay Sembalun</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e5a43b'><path d='M12 2l-8 7v13h16V9l-8-7zm0 4.5l5 4.38V20h-3v-5h-4v5H7v-9.12l5-4.38z'/></svg>">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       SIDEBAR NAVIGATION
+       ========================================================================== -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand-icon">BK</div>
+      <div>
+        <div class="sidebar-brand-title">Bale Keluarga</div>
+        <div class="sidebar-brand-sub">Panel Admin Web</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Menu Utama</div>
+      <button class="nav-item-btn active" data-tab="overview">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <span>Dashboard</span>
+      </button>
+
+      <button class="nav-item-btn" data-tab="hero">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+        <span>Hero & Banner</span>
+      </button>
+
+      <button class="nav-item-btn" data-tab="profile">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Profil & Kontak</span>
+      </button>
+
+      <div class="sidebar-section-label">Kelola Konten</div>
+      <button class="nav-item-btn" data-tab="rooms">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Pilihan Kamar</span>
+      </button>
+
+      <button class="nav-item-btn" data-tab="facilities">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <span>Fasilitas Homestay</span>
+      </button>
+
+      <button class="nav-item-btn" data-tab="experiences">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+        <span>Paket Wisata</span>
+      </button>
+
+      <button class="nav-item-btn" data-tab="gallery">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        <span>Galeri Foto</span>
+      </button>
+
+      <button class="nav-item-btn" data-tab="reviews">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Ulasan Tamu</span>
+      </button>
+
+      <button class="nav-item-btn" data-tab="faqs">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <span>FAQ (Tanya Jawab)</span>
+      </button>
+
+      <div class="sidebar-section-label">Sistem</div>
+      <button class="nav-item-btn" data-tab="backup">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Backup & Reset</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="index.html" target="_blank" class="btn-sidebar-preview">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        <span>Lihat Landing Page</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       MAIN CONTENT
+       ========================================================================== -->
+  <main class="admin-main">
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="topbar-title-wrap">
+        <button class="mobile-menu-toggle" id="mobileMenuBtn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <h2 id="topbarCurrentTabTitle" style="font-size: 1.35rem;">Dashboard Ringkasan</h2>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="save-status-pill">
+          <span class="save-status-dot"></span>
+          <span id="saveStatusText">Data Tersinkronisasi</span>
+        </div>
+
+        <button class="btn-save-master" id="btnMasterSave">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          Simpan Semua Perubahan
+        </button>
+      </div>
+    </header>
+
+    <div class="admin-content-body">
+
+      <!-- ==========================================================================
+           TAB 1: OVERVIEW DASHBOARD
+           ========================================================================== -->
+      <section class="tab-pane active" id="pane-overview">
+        <div class="panel-header">
+          <h1 class="panel-title">Selamat Datang di Panel Admin</h1>
+          <p class="panel-subtitle">Sesuaikan seluruh teks, foto, harga kamar, dan kontak Landing Page Bale Keluarga Homestay Sembalun secara langsung.</p>
+        </div>
+
+        <div class="overview-stats-grid">
+          <div class="stat-metric-card">
+            <div class="stat-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            </div>
+            <div>
+              <div class="stat-number" id="statRoomsCount">3</div>
+              <div class="stat-label">Tipe Kamar Aktif</div>
+            </div>
+          </div>
+
+          <div class="stat-metric-card">
+            <div class="stat-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <div>
+              <div class="stat-number" id="statFacilitiesCount">8</div>
+              <div class="stat-label">Fasilitas Ditampilkan</div>
+            </div>
+          </div>
+
+          <div class="stat-metric-card">
+            <div class="stat-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            </div>
+            <div>
+              <div class="stat-number" id="statExpCount">3</div>
+              <div class="stat-label">Paket Wisata Rinjani</div>
+            </div>
+          </div>
+
+          <div class="stat-metric-card">
+            <div class="stat-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle></svg>
+            </div>
+            <div>
+              <div class="stat-number" id="statGalleryCount">6</div>
+              <div class="stat-label">Foto di Galeri</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3 class="admin-card-title">Aksi Cepat Pengaturan</h3>
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <button class="btn-add-new-item" onclick="switchAdminTab('hero')">Edit Hero & Foto Banner</button>
+            <button class="btn-add-new-item" onclick="switchAdminTab('rooms')" style="background:var(--admin-gold); color:#122116;">Kelola Kamar & Harga</button>
+            <button class="btn-add-new-item" onclick="switchAdminTab('profile')">Ubah Nomor WhatsApp</button>
+            <a href="index.html" target="_blank" class="btn-secondary" style="display:inline-flex; align-items:center; gap:6px;">Buka Preview Landing Page ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           TAB 2: HERO & BANNER
+           ========================================================================== -->
+      <section class="tab-pane" id="pane-hero">
+        <div class="panel-header">
+          <h1 class="panel-title">Hero Section & Banner Utama</h1>
+          <p class="panel-subtitle">Ubah teks pembuka, slogan pemandangan, dan foto latar belakang panorama yang pertama kali dilihat pengunjung.</p>
+        </div>
+
+        <div class="admin-card">
+          <h3 class="admin-card-title">Teks & Judul Banner</h3>
+          <div class="form-row">
+            <div class="form-group-admin">
+              <label class="admin-label">Slogan Rating / Badge</label>
+              <input type="text" id="heroBadgeInput" class="admin-input">
+            </div>
+            <div class="form-group-admin">
+              <label class="admin-label">Kata Kunci Highlight (Warna Emas)</label>
+              <input type="text" id="heroHighlightWordInput" class="admin-input">
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <div class="form-group-admin">
+              <label class="admin-label">Judul Utama Hero (Sebelum kata highlight)</label>
+              <input type="text" id="heroTitleInput" class="admin-input">
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <div class="form-group-admin">
+              <label class="admin-label">Deskripsi Singkat Hero</label>
+              <textarea id="heroDescInput" class="admin-textarea"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3 class="admin-card-title">Foto Latar Belakang Hero (Background Banner)</h3>
+          <div class="image-selector-box">
+            <img src="images/hero.jpg" id="heroBgPreview" class="img-preview-thumb" alt="Preview Background">
+            <div class="image-controls">
+              <div>Pilih dari Koleksi Foto Asli Sembalun:</div>
+              <select id="heroPresetSelect" class="image-preset-select" onchange="onPresetImageChange(this, 'heroBgPreview', 'heroBgCustomInput')">
+                <option value="images/hero.jpg">images/hero.jpg (Panorama Sasak & Rinjani Sunrise)</option>
+                <option value="images/room-deluxe.jpg">images/room-deluxe.jpg (Kamar Deluxe Panorama)</option>
+                <option value="images/room-family.jpg">images/room-family.jpg (Family Suite Wood)</option>
+                <option value="images/pergasingan.jpg">images/pergasingan.jpg (Sunrise Bukit Pergasingan)</option>
+                <option value="images/bonfire.jpg">images/bonfire.jpg (Api Unggun Malam)</option>
+                <option value="images/strawberry.jpg">images/strawberry.jpg (Kebun Stroberi)</option>
+              </select>
+              
+              <div style="display:flex; align-items:center; gap:12px; margin-top:6px;">
+                <label class="custom-file-upload">
+                  <input type="file" accept="image/*" style="display:none;" onchange="handleFileUpload(event, 'heroBgPreview', 'heroBgCustomInput')">
+                  📁 Unggah Foto Baru dari Komputer
+                </label>
+                <span style="font-size:0.8rem; color:var(--admin-text-muted);">atau URL Gambar:</span>
+                <input type="text" id="heroBgCustomInput" class="admin-input" style="flex:1;" placeholder="Path / URL foto" oninput="onCustomUrlInput(this, 'heroBgPreview')">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3 class="admin-card-title">3 Poin Unggulan di Bawah Hero</h3>
+          <div class="form-row">
+            <div class="form-group-admin">
+              <label class="admin-label">Poin 1</label>
+              <input type="text" id="heroHl1Input" class="admin-input">
+            </div>
+            <div class="form-group-admin">
+              <label class="admin-label">Poin 2</label>
+              <input type="text" id="heroHl2Input" class="admin-input">
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-group-admin">
+              <label class="admin-label">Poin 3</label>
+              <input type="text" id="heroHl3Input" class="admin-input">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           TAB 3: PROFIL & KONTAK
+           ========================================================================== -->
+      <section class="tab-pane" id="pane-profile">
+        <div class="panel-header">
+          <h1 class="panel-title">Profil Bisnis & Kontak WhatsApp</h1>
+          <p class="panel-subtitle">Atur nomor WhatsApp untuk reservasi langsung, alamat properti, jam operasional, dan narasi cerita homestay.</p>
+        </div>
+
+        <div class="admin-card">
+          <h3 class="admin-card-title">Identitas & Kontak Resmi</h3>
+          <div class="form-row">
+            <div class="form-group-admin">
+              <label class="admin-label">Nama Brand Homestay</label>
+              <input type="text" id="profBrandNameInput" class="admin-input">
+            </div>
+            <div class="form-group-admin">
+              <label class="admin-label">Subtitle Lokasi</label>
+              <input type="text" id="profBrandSubInput" class="admin-input">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group-admin">
+              <label class="admin-label">Nomor WhatsApp Reservasi (Format: 628xxxxxxxxxx tanpa +)</label>
+              <input type="text" id="profWhatsappInput" class="admin-input">
+            </div>
+            <div class="form-group-admin">
+              <label class="admin-label">Telepon Tampilan (e.g. +62 812-3456-7890)</label>
+              <input type="text" id="profPhoneInput" class="admin-input">
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <div class="form-group-admin">
+              <label class="admin-label">Alamat Lengkap Homestay</label>
+              <input type="text" id="profAddressInput" class="admin-input">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group-admin">
+              <label class="admin-label">Jam Standar Check-In</label>
+              <input type="text" id="profCheckinInput" class="admin-input">
+            </div>
+            <div class="form-group-admin">
+              <label class="admin-label">Jam Standar Check-Out</label>
+              <input type="text" id="profCheckoutInput" class="admin-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3 class="admin-card-title">Kisah & Filosofi "Tentang Kami"</h3>
+          <div class="form-row full">
+            <div class="form-group-admin">
+              <label class="admin-label">Lead Paragraf (Kutipan Filosofi Bale)</label>
+              <textarea id="profAboutLeadInput" class="admin-textarea" style="min-height:70px;"></textarea>
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <div class="form-group-admin">
+              <label class="admin-label">Deskripsi Lengkap Tentang Bale Keluarga</label>
+              <textarea id="profAboutDescInput" class="admin-textarea" style="min-height:120px;"></textarea>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group-admin">
+              <label class="admin-label">Angka / Label Badge Profil</label>
+              <input type="text" id="profBadgeNumInput" class="admin-input">
+            </div>
+            <div class="form-group-admin">
+              <label class="admin-label">Keterangan Badge</label>
+              <input type="text" id="profBadgeTextInput" class="admin-input">
+            </div>
+          </div>
+
+          <div class="image-selector-box" style="margin-top:16px;">
+            <img src="images/hero.jpg" id="aboutImgPreview" class="img-preview-thumb" alt="Preview Foto Tentang Kami">
+            <div class="image-controls">
+              <div>Pilih Foto Profil Tentang Kami:</div>
+              <select id="aboutPresetSelect" class="image-preset-select" onchange="onPresetImageChange(this, 'aboutImgPreview', 'aboutImgCustomInput')">
+                <option value="images/hero.jpg">images/hero.jpg</option>
+                <option value="images/bonfire.jpg">images/bonfire.jpg</option>
+                <option value="images/strawberry.jpg">images/strawberry.jpg</option>
+                <option value="images/room-family.jpg">images/room-family.jpg</option>
+              </select>
+              <div style="display:flex; align-items:center; gap:12px; margin-top:6px;">
+                <label class="custom-file-upload">
+                  <input type="file" accept="image/*" style="display:none;" onchange="handleFileUpload(event, 'aboutImgPreview', 'aboutImgCustomInput')">
+                  📁 Unggah Foto Baru
+                </label>
+                <input type="text" id="aboutImgCustomInput" class="admin-input" style="flex:1;" placeholder="Path / URL foto" oninput="onCustomUrlInput(this, 'aboutImgPreview')">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           TAB 4: KELOLA KAMAR
+           ========================================================================== -->
+      <section class="tab-pane" id="pane-rooms">
+        <div class="panel-header" style="display:flex; justify-content:space-between; align-items:flex-end;">
+          <div>
+            <h1 class="panel-title">Kelola Pilihan Kamar</h1>
+            <p class="panel-subtitle">Atur tipe kamar, harga per malam, foto kamar, kapasitas tamu, dan fasilitas kamar.</p>
+          </div>
+          <button class="btn-add-new-item" onclick="openRoomModalForAdd()">+ Tambah Kamar Baru</button>
+        </div>
+
+        <div class="dynamic-items-grid" id="adminRoomsList">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           TAB 5: FASILITAS
+           ========================================================================== -->
+      <section class="tab-pane" id="pane-facilities">
+        <div class="panel-header" style="display:flex; justify-content:space-between; align-items:flex-end;">
+          <div>
+            <h1 class="panel-title">Fasilitas Homestay</h1>
+            <p class="panel-subtitle">Tampilkan fasilitas yang membuat tamu merasa nyaman dan hangat selama menginap.</p>
+          </div>
+          <button class="btn-add-new-item" onclick="openFacilityModalForAdd()">+ Tambah Fasilitas</button>
+        </div>
+
+        <div class="dynamic-items-grid" id="adminFacilitiesList">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           TAB 6: PAKET WISATA
+           ========================================================================== -->
+      <section class="tab-pane" id="pane-experiences">
+        <div class="panel-header" style="display:flex; justify-content:space-between; align-items:flex-end;">
+          <div>
+            <h1 class="panel-title">Paket Pengalaman & Wisata Sembalun</h1>
+            <p class="panel-subtitle">Kelola paket sunrise Pergasingan, petik stroberi, malam BBQ, atau tur budaya.</p>
+          </div>
+          <button class="btn-add-new-item" onclick="openExpModalForAdd()">+ Tambah Paket Wisata</button>
+        </div>
+
+        <div class="dynamic-items-grid" id="adminExperiencesList">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           TAB 7: GALERI FOTO
+           ========================================================================== -->
+      <section class="tab-pane" id="pane-gallery">
+        <div class="panel-header" style="display:flex; justify-content:space-between; align-items:flex-end;">
+          <div>
+            <h1 class="panel-title">Galeri Foto</h1>
+            <p class="panel-subtitle">Kelola foto-foto suasana nyata homestay, kamar, dan pemandangan perbukitan Sembalun.</p>
+          </div>
+          <button class="btn-add-new-item" onclick="openGalleryModalForAdd()">+ Tambah Foto Galeri</button>
+        </div>
+
+        <div class="dynamic-items-grid" id="adminGalleryList">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           TAB 8: ULASAN TAMU
+           ========================================================================== -->
+      <section class="tab-pane" id="pane-reviews">
+        <div class="panel-header" style="display:flex; justify-content:space-between; align-items:flex-end;">
+          <div>
+            <h1 class="panel-title">Ulasan & Testimoni Tamu</h1>
+            <p class="panel-subtitle">Bukti sosial dari tamu keluarga, pendaki, dan pasangan yang telah menginap.</p>
+          </div>
+          <button class="btn-add-new-item" onclick="openReviewModalForAdd()">+ Tambah Ulasan Baru</button>
+        </div>
+
+        <div class="dynamic-items-grid" id="adminReviewsList">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           TAB 9: FAQ
+           ========================================================================== -->
+      <section class="tab-pane" id="pane-faqs">
+        <div class="panel-header" style="display:flex; justify-content:space-between; align-items:flex-end;">
+          <div>
+            <h1 class="panel-title">FAQ (Tanya Jawab Pengunjung)</h1>
+            <p class="panel-subtitle">Pertanyaan penting yang sering diajukan seputar suhu Sembalun, air panas, dan makanan halal.</p>
+          </div>
+          <button class="btn-add-new-item" onclick="openFaqModalForAdd()">+ Tambah FAQ Baru</button>
+        </div>
+
+        <div class="dynamic-items-grid" id="adminFaqsList">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           TAB 10: BACKUP & RESET
+           ========================================================================== -->
+      <section class="tab-pane" id="pane-backup">
+        <div class="panel-header">
+          <h1 class="panel-title">Backup & Pemulihan Data</h1>
+          <p class="panel-subtitle">Ekspor cadangan file data atau pulihkan data homestay Anda kapan saja.</p>
+        </div>
+
+        <div class="admin-card">
+          <h3 class="admin-card-title">Ekspor & Impor Data JSON</h3>
+          <p style="color:var(--admin-text-muted); margin-bottom:18px;">
+            Simpan seluruh konfigurasi teks, harga kamar, dan foto ke dalam file JSON di komputer Anda untuk pencadangan aman.
+          </p>
+          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+            <button class="btn-add-new-item" onclick="exportDataJson()">
+              📥 Download Backup Data (JSON)
+            </button>
+            <label class="custom-file-upload">
+              <input type="file" accept=".json" style="display:none;" onchange="importDataJson(event)">
+              📤 Pulihkan Data dari File JSON
+            </label>
+          </div>
+        </div>
+
+        <div class="admin-card" style="border-left: 4px solid var(--admin-danger);">
+          <h3 class="admin-card-title" style="color:var(--admin-danger);">Reset ke Pengaturan Awal Pabrik</h3>
+          <p style="color:var(--admin-text-muted); margin-bottom:18px;">
+            Mengembalikan seluruh data teks, kamar, fasilitas, dan foto ke data standar asli Bale Keluarga Homestay Sembalun.
+          </p>
+          <button class="btn-secondary" style="background:#fee2e2; color:#b91c1c; font-weight:700;" onclick="resetToFactoryDefault()">
+            ⚠️ Reset ke Data Default
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       GENERIC MODAL FOR EDITING ITEMS
+       ========================================================================== -->
+  <div class="admin-modal-overlay" id="adminGenericModal">
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
+        <h3 id="genericModalTitle">Formulir Edit</h3>
+        <button onclick="closeGenericModal()" style="background:none; border:none; cursor:pointer; font-size:1.4rem;">&times;</button>
+      </div>
+      <div class="admin-modal-body" id="genericModalBody">
+        <!-- Injected dynamically -->
+      </div>
+      <div class="admin-modal-footer">
+        <button class="btn-secondary" onclick="closeGenericModal()">Batal</button>
+        <button class="btn-add-new-item" id="btnGenericModalSave">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="admin-toast" id="adminToast">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <span id="toastMessage">Perubahan berhasil disimpan!</span>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="admin.js"></script>
+</body>
+</html>

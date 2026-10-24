@@ -1,0 +1,270 @@
+﻿{
+  "profile": {
+    "brandName": "Bale Keluarga",
+    "brandSubtitle": "Homestay Sembalun",
+    "phone": "+62 812-3456-7890",
+    "whatsapp": "6281234567890",
+    "address": "Jl. Pariwisata Sembalun Lawang, Lombok Timur, NTB 83656",
+    "aboutLead": "\"Bale\" dalam bahasa Sasak bermakna Rumah. Kami menghadirkan tempat pulang yang nyaman bagi setiap musafir dan keluarga yang berkunjung ke Sembalun.",
+    "aboutDesc": "Terletak di ketinggian 1.150 meter di atas permukaan laut di lereng megah Gunung Rinjani, Bale Keluarga memadukan kehangatan arsitektur kayu khas Lombok dengan kenyamanan modern. Udara Sembalun yang sejuk hingga 14°C dapat dinikmati dengan tenang berkat kamar mandi berair panas melimpah, selimut duvet hangat, dan seduhan kopi Sembalun segar.",
+    "aboutImage": "images/hero.jpg",
+    "badgeNumber": "100% Asli",
+    "badgeText": "Dikelola Ramah oleh Warga Lokal Sembalun",
+    "checkinTime": "14:00 WITA",
+    "checkoutTime": "12:00 WITA"
+  },
+  "hero": {
+    "badge": "�~.�~.�~.�~.�~. 4.9/5 Rating Terverifikasi (140+ Ulasan)",
+    "title": "Kehangatan Rumah Keluarga di",
+    "highlightWord": "Kaki Gunung Rinjani",
+    "description": "Nikmati sejuknya alam Sembalun dengan kenyamanan kamar hangat berair panas, balkon berpanorama gunung megah, kebun stroberi petik sendiri, dan keramahan asli suku Sasak.",
+    "bgImage": "images/hero.jpg",
+    "highlight1": "Water Heater 24 Jam",
+    "highlight2": "View 360° Rinjani & Pergasingan",
+    "highlight3": "Sarapan & Kopi Sembalun"
+  },
+  "rooms": [
+    {
+      "id": "deluxe",
+      "title": "Deluxe Rinjani View Room",
+      "badge": "Best Mountain View",
+      "price": 450000,
+      "capacity": "2 Tamu (+ 1 Anak)",
+      "bed": "1 King Bed Premium",
+      "description": "Jendela panorama kaca lebar menghadap puncak Gunung Rinjani. Nikmati pemandangan matahari terbit langsung dari ranjang empuk Anda.",
+      "image": "images/room-deluxe.jpg",
+      "amenities": [
+        "Water Heater 24 Jam (Ariston)",
+        "Balkon / Teras Menghadap Rinjani",
+        "Sarapan Lezat 2 Porsi Termasuk",
+        "Teko Listrik, Kopi Sembalun & Teh Lokal",
+        "Koneksi Wi-Fi Cepat (Fiber)",
+        "Perlengkapan Mandi & Handuk Hangat",
+        "Meja Kerja & Kursi Santai Kayu Sasak"
+      ]
+    },
+    {
+      "id": "family",
+      "title": "Family Suite Bale Room",
+      "badge": "Favorit Keluarga",
+      "price": 750000,
+      "capacity": "4 - 6 Tamu",
+      "bed": "2 Queen Beds Nyaman",
+      "description": "Ruangan super luas dengan langit-langit tinggi kayu Sasak. Ideal untuk momen kumpul hangat keluarga atau rombongan pendakian.",
+      "image": "images/room-family.jpg",
+      "amenities": [
+        "2 Queen Beds dengan Sprei & Selimut Ekstra Hangat",
+        "Kamar Mandi Luas + Water Heater 24 Jam",
+        "Sarapan Keluarga untuk 4 Orang",
+        "Dispenser Air Galon di Dalam Kamar",
+        "Area Kumpul & Meja Santai Keluarga",
+        "Akses Langsung ke Kebun Stroberi",
+        "Wi-Fi Fiber Cepat untuk Semua Tamu"
+      ]
+    },
+    {
+      "id": "standard",
+      "title": "Standard Cozy Room",
+      "badge": "Best Value",
+      "price": 300000,
+      "capacity": "2 Tamu",
+      "bed": "1 Queen Bed / Twin Bed",
+      "description": "Kenyamanan esensial yang bersih, hangat, dan higienis. Pilihan favorit backpacker dan pendaki yang mencari transit berkualitas tinggi.",
+      "image": "images/hero.jpg",
+      "amenities": [
+        "Kamar Mandi Dalam + Water Heater",
+        "Queen Bed dengan Selimut Tebal",
+        "Sarapan Pagi Hangat untuk 2 Orang",
+        "Wi-Fi Cepat & Spot Colokan Banyak",
+        "Penitipan Tas/Carrier Pendakian Gratis",
+        "Teh/Kopi Sembalun Selamat Datang"
+      ]
+    }
+  ],
+  "facilities": [
+    {
+      "id": "f1",
+      "title": "Air Panas 24 Jam",
+      "desc": "Mandi air panas bertekanan mantap kapan pun Anda butuh, menghalau dinginnya malam Sembalun."
+    },
+    {
+      "id": "f2",
+      "title": "High-Speed Wi-Fi",
+      "desc": "Koneksi internet fiber lancar untuk kebutuhan komunikasi, kerja jarak jauh, atau upload konten liburan."
+    },
+    {
+      "id": "f3",
+      "title": "Api Unggun & BBQ",
+      "desc": "Area lingkaran batu api unggun di bawah langit berbintang Sembalun, lengkap dengan peralatan memanggang."
+    },
+    {
+      "id": "f4",
+      "title": "Kebun Stroberi Sendiri",
+      "desc": "Tamu berkesempatan langsung memetik buah stroberi segar dan sayuran pegunungan di kebun homestay."
+    },
+    {
+      "id": "f5",
+      "title": "Dapur Bersama Lengkap",
+      "desc": "Kulkas, kompor gas, dan perlengkapan masak tersedia bebas digunakan untuk memasak santapan keluarga."
+    },
+    {
+      "id": "f6",
+      "title": "Parkir Luas & Aman",
+      "desc": "Halaman parkir pribadi yang luas, mampu menampung rombongan mobil keluarga dan puluhan sepeda motor."
+    },
+    {
+      "id": "f7",
+      "title": "Sewa Motor & Alat Rinjani",
+      "desc": "Rental motor matic bertenaga untuk berkeliling lembah, serta penyewaan tenda & sleeping bag tebal."
+    },
+    {
+      "id": "f8",
+      "title": "Kopi & Teh Gratis",
+      "desc": "Selamat datang dengan secangkir kopi arabika asli Sembalun atau teh hangat khas kebun pegunungan."
+    }
+  ],
+  "experiences": [
+    {
+      "id": "exp1",
+      "title": "Paket Sunrise Bukit Pergasingan",
+      "tag": "Terpopuler",
+      "price": 150000,
+      "image": "images/pergasingan.jpg",
+      "desc": "Menyaksikan karpet sawah warna-warni Sembalun yang memesona bermandikan cahaya matahari emas dari puncak bukit.",
+      "perks": [
+        "Tiket masuk & Guide Lokal Ramah",
+        "Sarapan & Kopi Hangat di Puncak",
+        "Berangkat 04.30 langsung dari homestay"
+      ]
+    },
+    {
+      "id": "exp2",
+      "title": "Petik Stroberi & Tur Desa Adat",
+      "tag": "Favorit Anak",
+      "price": 75000,
+      "image": "images/strawberry.jpg",
+      "desc": "Kegiatan edukasi seru untuk keluarga. Memetik stroberi manis langsung dari pohon dan mengunjungi rumah adat tertua Beleq.",
+      "perks": [
+        "Keranjang Petik & Stroberi Segar",
+        "Tur Budaya Desa Beleq 7 Rumah",
+        "Spot Foto Menawan Tanpa Antri"
+      ]
+    },
+    {
+      "id": "exp3",
+      "title": "Malam Api Unggun & BBQ Set",
+      "tag": "Suasana Hangat",
+      "price": 120000,
+      "image": "images/bonfire.jpg",
+      "desc": "Malam syahdu menghangatkan badan di sekeliling api unggun batu dengan jagung bakar atau sate ayam khas Lombok.",
+      "perks": [
+        "Kayu Bakar Berkualitas & Pemantik",
+        "Panggangan BBQ & Alat Lengkap",
+        "Selimut Hangat & Teh Jahe Rempah"
+      ]
+    }
+  ],
+  "gallery": [
+    {
+      "id": "g1",
+      "title": "Panorama Pagi Bale Keluarga & Rinjani",
+      "subtitle": "Pemandangan langsung dari halaman homestay",
+      "category": "pemandangan",
+      "image": "images/hero.jpg",
+      "span2": true
+    },
+    {
+      "id": "g2",
+      "title": "Deluxe Room Panorama",
+      "subtitle": "Kamar tidur bernuansa kayu hangat",
+      "category": "kamar",
+      "image": "images/room-deluxe.jpg",
+      "span2": false
+    },
+    {
+      "id": "g3",
+      "title": "Bukit Pergasingan",
+      "subtitle": "Hanya 5 menit berkendara dari homestay",
+      "category": "pemandangan",
+      "image": "images/pergasingan.jpg",
+      "span2": false
+    },
+    {
+      "id": "g4",
+      "title": "Family Suite Bale Room",
+      "subtitle": "2 ranjang queen luas untuk keluarga",
+      "category": "kamar",
+      "image": "images/room-family.jpg",
+      "span2": false
+    },
+    {
+      "id": "g5",
+      "title": "Lingkaran Api Unggun Malam",
+      "subtitle": "Hangatnya kebersamaan keluarga",
+      "category": "aktivitas",
+      "image": "images/bonfire.jpg",
+      "span2": false
+    },
+    {
+      "id": "g6",
+      "title": "Kebun Stroberi Pribadi",
+      "subtitle": "Pengalaman petik langsung buah segar",
+      "category": "aktivitas",
+      "image": "images/strawberry.jpg",
+      "span2": true
+    }
+  ],
+  "reviews": [
+    {
+      "id": "r1",
+      "name": "Budi Santoso & Keluarga",
+      "origin": "Surabaya, Jawa Timur",
+      "avatar": "B",
+      "rating": 5,
+      "text": "Pilihan terbaik untuk keluarga kami! Hawa Sembalun sangat dingin di malam hari, tapi beruntung sekali water heater di kamar mandinya lancar dan panas mantap. Anak-anak sangat senang memetik stroberi di samping kamar. Tuan rumahnya luar biasa ramah!"
+    },
+    {
+      "id": "r2",
+      "name": "Dimas Wicaksono",
+      "origin": "Jakarta Selatan (Komunitas Pendaki)",
+      "avatar": "D",
+      "rating": 5,
+      "text": "Saya dan teman-teman transit di Bale Keluarga sebelum naik ke Rinjani. Tempat tidurnya empuk dan selimutnya tebal banget. Pagi-pagi disuguhkan kopi Sembalun yang aromanya wangi sembari melihat view Rinjani dari teras. Pasti balik lagi ke sini!"
+    },
+    {
+      "id": "r3",
+      "name": "Anisa & Rizky",
+      "origin": "Bandung, Jawa Barat",
+      "avatar": "A",
+      "rating": 5,
+      "text": "Suasana malam hari dengan api unggun dan langit berbintang (milky way) itu magis banget. Ownernya juga membantu kami pesan sewa motor dan trip sunrise Pergasingan. Sangat berkesan untuk honeymoon kami di Lombok."
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq1",
+      "question": "Seberapa dingin suhu di Sembalun dan apakah butuh jaket tebal?",
+      "answer": "Suhu siang hari rata-rata 20°C - 24°C, namun di malam hingga dini hari bisa turun drastis hingga 12°C - 16°C. Sangat disarankan membawa jaket tebal, kaus kaki hangat, dan pakaian hangat terutama untuk anak-anak dan lansia. Di homestay, kami sudah menyiapkan selimut duvet tebal dan air panas melimpah di setiap kamar."
+    },
+    {
+      "id": "faq2",
+      "question": "Apakah air panas (water heater) tersedia di setiap kamar mandi?",
+      "answer": "Ya, 100% setiap kamar di Bale Keluarga Homestay dilengkapi dengan pemanas air (water heater) bertekanan stabil yang berfungsi 24 jam penuh tanpa biaya tambahan."
+    },
+    {
+      "id": "faq3",
+      "question": "Berapa jam check-in dan check-out?",
+      "answer": "Waktu check-in standar dimulai pukul 14:00 WITA dan check-out pukul 12:00 WITA. Namun, kami sangat fleksibel jika kamar sudah siap lebih awal atau jika Anda tiba di pagi hari setelah pendakian, Anda dipersilakan beristirahat di bale santai kami terlebih dahulu."
+    },
+    {
+      "id": "faq4",
+      "question": "Apakah bisa memesan makanan halal khas Lombok di homestay?",
+      "answer": "Tentu saja! Sarapan rumahan sudah termasuk dalam harga kamar. Untuk makan siang atau makan malam, Anda bisa memesan hidangan lokal khas seperti Ayam Bakar Taliwang, Sayur Beberuk, Plecing Kangkung Sembalun, dan Ikan Bakar segar dengan konfirmasi kepada staf kami."
+    },
+    {
+      "id": "faq5",
+      "question": "Bagaimana kebijakan pembatalan atau perubahan tanggal menginap?",
+      "answer": "Kami memahami rencana pendakian dan liburan bisa terpengaruh cuaca. Perubahan jadwal (reschedule) dapat dilakukan tanpa biaya tambahan dengan konfirmasi minimal 3 hari sebelum tanggal kedatangan selama kamar masih tersedia."
+    }
+  ]
+}
