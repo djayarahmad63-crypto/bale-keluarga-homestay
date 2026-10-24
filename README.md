@@ -1,5 +1,11 @@
 # Bale Keluarga Homestay Sembalun - Landing Page & Panel Admin
 
+<p align="center">
+  <img src="images/logo.png" alt="Bale Keluarga Homestay Logo" width="180">
+  <br>
+  <em>Harmoni Kemegahan Rinjani & Kehangatan Keluarga Tradisional Sasak</em>
+</p>
+
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdjayarahmad63-crypto%2Fbale-keluarga-homestay-sembalun)
 
 Landing page premium, responsif, dan siap pakai untuk **Bale Keluarga Homestay Sembalun**, Lombok Timur, lengkap dengan **Panel Admin Interaktif** untuk kustomisasi seluruh konten, harga, teks, dan foto secara langsung.
