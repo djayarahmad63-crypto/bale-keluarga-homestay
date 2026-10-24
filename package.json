@@ -1,0 +1,9 @@
+{
+  "name": "bale-keluarga-homestay",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website & Admin Panel Bale Keluarga Homestay Sembalun",
+  "scripts": {
+    "start": "node -e \"console.log('Static site & serverless functions ready')\""
+  }
+}

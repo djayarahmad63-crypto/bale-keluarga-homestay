@@ -87,10 +87,15 @@
           <li><a href="#galeri" class="nav-link">Galeri</a></li>
           <li><a href="#ulasan" class="nav-link">Ulasan Tamu</a></li>
           <li><a href="#lokasi" class="nav-link">Lokasi</a></li>
+          <li><a href="admin.html" class="nav-link nav-link-admin open-admin-trigger" id="mobileNavAdminBtn">🔐 Login Admin</a></li>
         </ul>
       </nav>
 
       <div class="nav-cta">
+        <a href="admin.html" class="nav-admin-btn open-admin-trigger" id="navAdminBtn" title="Masuk ke Panel Admin">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>Admin</span>
+        </a>
         <a href="#reservasi" class="btn-book-nav" id="navBookBtn">
           <!-- Calendar Icon -->
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -1014,7 +1019,11 @@
       <div class="footer-bottom">
         <div>
           &copy; 2026 Bale Keluarga Homestay Sembalun. Seluruh Hak Dilindungi.
-          <a href="#admin-login" id="adminSecretTrigger" class="admin-hidden-trigger" title="Panel Admin" aria-label="Panel Admin" style="opacity: 0; display: inline-block; margin-left: 6px; text-decoration: none; font-size: 0.85rem; vertical-align: middle; transition: opacity 0.3s; cursor: pointer;">⚙️</a>
+          <a href="admin.html" id="footerAdminTrigger" class="footer-admin-link open-admin-trigger" title="Buka Panel Admin">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align: -2px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Panel Admin</span>
+          </a>
+          <a href="admin.html" id="adminSecretTrigger" class="open-admin-trigger" style="display:none;" aria-hidden="true"></a>
         </div>
         <div>Didesain dengan Cinta di Kaki Gunung Rinjani, Lombok</div>
       </div>

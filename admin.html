@@ -6,6 +6,58 @@
   <title>Panel Admin | Bale Keluarga Homestay Sembalun</title>
   <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="stylesheet" href="admin.css">
+  <style>
+    .admin-authorized #adminAuthShield {
+      display: none !important;
+    }
+  </style>
+  <script>
+    // Immediate check so shield never flashes if authenticated
+    if (sessionStorage.getItem('bale_admin_auth') === '122027') {
+      document.documentElement.classList.add('admin-authorized');
+    }
+
+    function handleShieldLogin(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('shieldPassInput');
+      const errorEl = document.getElementById('shieldErrorMsg');
+      const btn = document.getElementById('btnShieldSubmit');
+      const val = input ? input.value.trim() : '';
+
+      if (val === '122027') {
+        sessionStorage.setItem('bale_admin_auth', '122027');
+        if (errorEl) errorEl.style.display = 'none';
+        if (btn) {
+          btn.textContent = 'Berhasil Masuk...';
+          btn.style.background = '#16a34a';
+        }
+        const shield = document.getElementById('adminAuthShield');
+        if (shield) {
+          shield.style.transition = 'opacity 0.25s ease';
+          shield.style.opacity = '0';
+          setTimeout(() => {
+            shield.style.display = 'none';
+          }, 250);
+        }
+      } else {
+        if (errorEl) {
+          errorEl.style.display = 'block';
+          errorEl.textContent = 'Kata sandi salah! Silakan coba lagi.';
+        }
+        if (input) {
+          input.focus();
+          input.select();
+        }
+      }
+    }
+
+    function toggleShieldPassVisibility() {
+      const input = document.getElementById('shieldPassInput');
+      if (input) {
+        input.type = input.type === 'password' ? 'text' : 'password';
+      }
+    }
+  </script>
 </head>
 <body>
 

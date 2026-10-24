@@ -625,16 +625,16 @@ function initFaqAccordion() {
   });
 }
 
-// 8. Admin Secret Login Modal (Password: 122027)
+// 8. Admin Login Modal & Navigation (Password: 122027)
 function initAdminLoginModal() {
-  const trigger = document.getElementById('adminSecretTrigger');
+  const triggers = document.querySelectorAll('.open-admin-trigger, #adminSecretTrigger, #footerAdminTrigger, #navAdminBtn, #mobileNavAdminBtn');
   const modal = document.getElementById('adminLoginModal');
   const form = document.getElementById('adminLoginForm');
   const passInput = document.getElementById('adminPassInput');
   const errorMsg = document.getElementById('adminLoginError');
   const closeBtn = document.getElementById('closeAdminLoginModal');
 
-  if (trigger && modal) {
+  triggers.forEach(trigger => {
     trigger.addEventListener('click', (e) => {
       e.preventDefault();
       // If already logged in this session, navigate directly
@@ -642,14 +642,20 @@ function initAdminLoginModal() {
         window.location.href = 'admin.html';
         return;
       }
-      modal.classList.add('active');
-      if (errorMsg) errorMsg.style.display = 'none';
-      if (passInput) {
-        passInput.value = '';
-        setTimeout(() => passInput.focus(), 150);
+      if (modal) {
+        modal.classList.add('active');
+        if (errorMsg) errorMsg.style.display = 'none';
+        if (passInput) {
+          passInput.value = '';
+          setTimeout(() => passInput.focus(), 150);
+        }
+      } else {
+        window.location.href = 'admin.html';
       }
     });
+  });
 
+  if (modal) {
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
         modal.classList.remove('active');
