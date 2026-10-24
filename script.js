@@ -101,11 +101,13 @@ async function loadAndHydrateData() {
     const h = homestayData.hero;
     const heroSec = document.querySelector('.hero-section');
     if (heroSec && h.bgImage) {
-      heroSec.style.background = `linear-gradient(180deg, rgba(17, 33, 20, 0.6) 0%, rgba(17, 33, 20, 0.75) 100%), url('${h.bgImage}') center/cover no-repeat`;
+      heroSec.style.background = `linear-gradient(180deg, rgba(22, 17, 31, 0.65) 0%, rgba(22, 17, 31, 0.82) 100%), url('${h.bgImage}') center/cover no-repeat`;
     }
 
     const badgeSpan = document.querySelector('.hero-badge span:last-child');
-    if (badgeSpan && h.badge) badgeSpan.textContent = h.badge.replace(/★/g, '').trim();
+    if (badgeSpan && h.badge) {
+      badgeSpan.textContent = h.badge.replace(/^[^0-9]*/, '').trim() || '4.9/5 Rating Terverifikasi (140+ Ulasan)';
+    }
 
     const heroTitle = document.querySelector('.hero-title');
     if (heroTitle && h.title) {
