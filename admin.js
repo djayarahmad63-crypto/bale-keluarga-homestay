@@ -486,8 +486,8 @@ async function handleFileUpload(event, previewId, inputId) {
   const preview = document.getElementById(previewId);
   const input = document.getElementById(inputId);
 
-  const cloudName = localStorage.getItem('bale_cloudinary_name');
-  const uploadPreset = localStorage.getItem('bale_cloudinary_preset');
+  const cloudName = localStorage.getItem('bale_cloudinary_name') || 'lsxj03eg';
+  const uploadPreset = localStorage.getItem('bale_cloudinary_preset') || 'bale_keluarga_preset';
 
   // 1. Direct Cloudinary Upload from Internal Storage
   if (cloudName && uploadPreset) {
@@ -1371,23 +1371,19 @@ function initSyncSettings() {
   }
 
   // Cloudinary Settings
-  const cName = localStorage.getItem('bale_cloudinary_name');
-  const cPreset = localStorage.getItem('bale_cloudinary_preset');
+  const defaultCloudName = 'lsxj03eg';
+  const defaultUploadPreset = 'bale_keluarga_preset';
+  const cName = localStorage.getItem('bale_cloudinary_name') || defaultCloudName;
+  const cPreset = localStorage.getItem('bale_cloudinary_preset') || defaultUploadPreset;
   const cNameInput = document.getElementById('cloudinaryCloudNameInput');
   const cPresetInput = document.getElementById('cloudinaryPresetInput');
   const cBadge = document.getElementById('cloudinaryStatusBadge');
-  if (cNameInput && cName) cNameInput.value = cName;
-  if (cPresetInput && cPreset) cPresetInput.value = cPreset;
+  if (cNameInput) cNameInput.value = cName;
+  if (cPresetInput) cPresetInput.value = cPreset;
   if (cBadge) {
-    if (cName && cPreset) {
-      cBadge.textContent = '☁️ Cloudinary CDN: Aktif';
-      cBadge.style.background = '#dbeafe';
-      cBadge.style.color = '#1d4ed8';
-    } else {
-      cBadge.textContent = 'Penyimpanan Lokal';
-      cBadge.style.background = '#f1f5f9';
-      cBadge.style.color = '#475569';
-    }
+    cBadge.textContent = '☁️ Cloudinary CDN: Aktif';
+    cBadge.style.background = '#dbeafe';
+    cBadge.style.color = '#1d4ed8';
   }
 
   // GitHub Token
