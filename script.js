@@ -312,12 +312,20 @@ async function loadAndHydrateData() {
     }
   }
 
+function formatWhatsAppNumber(num) {
+  if (!num) return '6285801112024';
+  let clean = num.toString().replace(/[^0-9]/g, '');
+  if (clean.startsWith('0')) clean = '62' + clean.slice(1);
+  if (clean.startsWith('68')) clean = '62' + clean.slice(1);
+  return clean || '6285801112024';
+}
+
   // Floating WhatsApp Action
   const floatingWa = document.getElementById('floatingWhatsappBtn');
   if (floatingWa) {
     floatingWa.onclick = () => {
-      const waNumber = (homestayData.profile && homestayData.profile.whatsapp) ? homestayData.profile.whatsapp : '6281234567890';
-      const msg = encodeURIComponent(`Halo ${homestayData.profile?.brandName || 'Bale Keluarga Homestay'}, saya ingin menanyakan ketersediaan kamar dan paket wisata Sembalun. Terima kasih!`);
+      const waNumber = formatWhatsAppNumber(homestayData?.profile?.whatsapp);
+      const msg = encodeURIComponent(`Halo ${homestayData?.profile?.brandName || 'Bale Keluarga Homestay'}, saya ingin menanyakan ketersediaan kamar dan paket wisata Sembalun. Terima kasih!`);
       window.open(`https://wa.me/${waNumber}?text=${msg}`, '_blank');
     };
   }
@@ -429,7 +437,7 @@ function initBookingCalculator() {
     message += `Apakah pada tanggal tersebut kamar masih tersedia? Terima kasih!`;
 
     const encodedMessage = encodeURIComponent(message);
-    const waPhoneNumber = (homestayData?.profile && homestayData.profile.whatsapp) ? homestayData.profile.whatsapp : '6281234567890';
+    const waPhoneNumber = formatWhatsAppNumber(homestayData?.profile?.whatsapp);
     const waUrl = `https://wa.me/${waPhoneNumber}?text=${encodedMessage}`;
 
     if (btnWhatsapp) {
