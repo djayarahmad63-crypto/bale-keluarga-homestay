@@ -1,6 +1,19 @@
 # Bale Keluarga Homestay Sembalun - Landing Page & Panel Admin
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdjayarahmad63-crypto%2Fbale-keluarga-homestay-sembalun)
+
 Landing page premium, responsif, dan siap pakai untuk **Bale Keluarga Homestay Sembalun**, Lombok Timur, lengkap dengan **Panel Admin Interaktif** untuk kustomisasi seluruh konten, harga, teks, dan foto secara langsung.
+
+---
+
+## ⚡ Deploy Instan ke Vercel
+
+Klik tombol di bawah ini untuk deploy otomatis ke akun Vercel Anda:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdjayarahmad63-crypto%2Fbale-keluarga-homestay-sembalun)
+
+Atau buka tautan berikut:
+👉 **[https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdjayarahmad63-crypto%2Fbale-keluarga-homestay-sembalun](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdjayarahmad63-crypto%2Fbale-keluarga-homestay-sembalun)**
 
 ---
 
@@ -34,14 +47,14 @@ Panel Admin mandiri yang memungkinkan pemilik/pengelola mengedit:
 
 ---
 
-## 🚀 Cara Mengakses & Menjalankan
+## 🚀 Cara Menjalankan Secara Lokal
 
 ### 1. Membuka Landing Page & Panel Admin:
 Pastikan server lokal berjalan (default: port 8080):
 - **Landing Page**: [http://localhost:8080/](http://localhost:8080/)
 - **Panel Admin**: [http://localhost:8080/admin.html](http://localhost:8080/admin.html)
 
-*(Terdapat juga tombol akses langsung `⚙️ Panel Admin` di bagian footer landing page).*
+*(Terdapat juga tombol akses transparan di samping teks hak cipta pada footer).*
 
 ### 2. Menjalankan Server PowerShell:
 ```powershell
@@ -62,6 +75,7 @@ d:/landingpage/
 ├── admin.js            # Engine manajemen data, upload foto, & sinkronisasi
 ├── data.json           # Sumber data terpusat homestay
 ├── server.ps1          # Web server lokal dengan REST API data
+├── vercel.json         # Konfigurasi deployment Vercel
 ├── PRD.md              # Dokumen spesifikasi kebutuhan produk (PRD)
 └── README.md           # Panduan penggunaan proyek
 ```
